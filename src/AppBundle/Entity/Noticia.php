@@ -158,4 +158,11 @@ class Noticia
     {
         return $this->user;
     }
+
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+
 }

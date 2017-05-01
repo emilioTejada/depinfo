@@ -109,4 +109,11 @@ class Categoria
     {
         return $this->noticia;
     }
+
+
+    function __toString()
+    {
+        return $this->getName();
+    }
+
 }
