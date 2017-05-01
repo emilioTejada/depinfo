@@ -5,12 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CICLO
+ * Class Noticia
+ * @package AppBundle\Entity
  *
- * @ORM\Table(name="ciclo")
+ * @ORM\Table(name="noticia")
  * @ORM\Entity()
  */
-class Ciclo
+class Noticia
 {
     /**
      * @var int
@@ -20,6 +21,7 @@ class Ciclo
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
 
     /**
      * @var string
@@ -31,30 +33,29 @@ class Ciclo
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="string", length=1000)
      */
     private $description;
 
-    /**
-     * @return int
-     */
+//- Imagen
 
     /**
-     * @var Asignatura
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Asignatura", mappedBy="ciclo")
+     * @var Categoria
      *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Categoria", inversedBy="noticia" )
      */
-    private $asignatura;
-
+    private $categoria;
 
 
     /**
-     * Constructor
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="noticia")
      */
-    public function __construct()
-    {
-        $this->asignatura = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $user;
+
+
+
 
     /**
      * Get id
@@ -70,7 +71,7 @@ class Ciclo
      * Set name
      *
      * @param string $name
-     * @return Ciclo
+     * @return Noticia
      */
     public function setName($name)
     {
@@ -93,7 +94,7 @@ class Ciclo
      * Set description
      *
      * @param string $description
-     * @return Ciclo
+     * @return Noticia
      */
     public function setDescription($description)
     {
@@ -113,35 +114,48 @@ class Ciclo
     }
 
     /**
-     * Add asignatura
+     * Set categoria
      *
-     * @param \AppBundle\Entity\Asignatura $asignatura
-     * @return Ciclo
+     * @param \AppBundle\Entity\Categoria $categoria
+     * @return Noticia
      */
-    public function addAsignatura(\AppBundle\Entity\Asignatura $asignatura)
+    public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
     {
-        $this->asignatura[] = $asignatura;
+        $this->categoria = $categoria;
 
         return $this;
     }
 
     /**
-     * Remove asignatura
+     * Get categoria
      *
-     * @param \AppBundle\Entity\Asignatura $asignatura
+     * @return \AppBundle\Entity\Categoria 
      */
-    public function removeAsignatura(\AppBundle\Entity\Asignatura $asignatura)
+    public function getCategoria()
     {
-        $this->asignatura->removeElement($asignatura);
+        return $this->categoria;
     }
 
     /**
-     * Get asignatura
+     * Set user
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param \AppBundle\Entity\User $user
+     * @return Noticia
      */
-    public function getAsignatura()
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        return $this->asignatura;
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

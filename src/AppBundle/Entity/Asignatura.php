@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CICLO
+ * ASIGNATURA
  *
- * @ORM\Table(name="ciclo")
+ * @ORM\Table(name="asignatura")
  * @ORM\Entity()
  */
-class Ciclo
+class Asignatura
 {
     /**
      * @var int
@@ -36,25 +36,18 @@ class Ciclo
     private $description;
 
     /**
-     * @return int
-     */
-
-    /**
-     * @var Asignatura
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Asignatura", mappedBy="ciclo")
+     * @var int
      *
+     * @ORM\Column(type="string", length=255)
      */
-    private $asignatura;
-
-
+    private $curso;
 
     /**
-     * Constructor
+     * @var Ciclo
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ciclo", inversedBy="asignatura")
      */
-    public function __construct()
-    {
-        $this->asignatura = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $ciclo;
 
     /**
      * Get id
@@ -70,7 +63,7 @@ class Ciclo
      * Set name
      *
      * @param string $name
-     * @return Ciclo
+     * @return Asignatura
      */
     public function setName($name)
     {
@@ -93,7 +86,7 @@ class Ciclo
      * Set description
      *
      * @param string $description
-     * @return Ciclo
+     * @return Asignatura
      */
     public function setDescription($description)
     {
@@ -113,35 +106,48 @@ class Ciclo
     }
 
     /**
-     * Add asignatura
+     * Set curso
      *
-     * @param \AppBundle\Entity\Asignatura $asignatura
-     * @return Ciclo
+     * @param string $curso
+     * @return Asignatura
      */
-    public function addAsignatura(\AppBundle\Entity\Asignatura $asignatura)
+    public function setCurso($curso)
     {
-        $this->asignatura[] = $asignatura;
+        $this->curso = $curso;
 
         return $this;
     }
 
     /**
-     * Remove asignatura
+     * Get curso
      *
-     * @param \AppBundle\Entity\Asignatura $asignatura
+     * @return string 
      */
-    public function removeAsignatura(\AppBundle\Entity\Asignatura $asignatura)
+    public function getCurso()
     {
-        $this->asignatura->removeElement($asignatura);
+        return $this->curso;
     }
 
     /**
-     * Get asignatura
+     * Set ciclo
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param \AppBundle\Entity\Ciclo $ciclo
+     * @return Asignatura
      */
-    public function getAsignatura()
+    public function setCiclo(\AppBundle\Entity\Ciclo $ciclo = null)
     {
-        return $this->asignatura;
+        $this->ciclo = $ciclo;
+
+        return $this;
+    }
+
+    /**
+     * Get ciclo
+     *
+     * @return \AppBundle\Entity\Ciclo 
+     */
+    public function getCiclo()
+    {
+        return $this->ciclo;
     }
 }
