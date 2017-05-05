@@ -1,0 +1,19 @@
+UserControl_homepage:
+    path:     /
+    defaults: { _controller: UserControlBundle:Default:index }
+
+#Estas dos rutas (logout,login_check) ya tienen la funcionalidad creada automaticamente por symfony
+#de forma que solo tenemos que poner las rutas para que funcionen
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
+
+login:
+    path:     /login
+    defaults: { _controller: UserControlBundle:User:login }
+
+register:
+    path:     /register
+    defaults: { _controller: UserControlBundle:User:register }
