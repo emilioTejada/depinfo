@@ -27,6 +27,7 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $role;
 
@@ -37,6 +38,8 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
@@ -62,6 +65,7 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
      */
     private $active;
 
