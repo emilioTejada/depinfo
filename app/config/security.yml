@@ -2,23 +2,37 @@
 # http://symfony.com/doc/current/security.html
 security:
 
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        # Our user class and the algorithm we'll use to encode passwords
+        # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
+        MantenimientoBundle\Entity\Usuarios: bcrypt
+
     providers:
-        in_memory:
-            memory: ~
+      user_db_provider:
+        # in this example, users are stored via Doctrine in the database
+        # To see the users at src/AppBundle/DataFixtures/ORM/LoadFixtures.php
+        # To load users from somewhere else: http://symfony.com/doc/current/cookbook/security/custom_provider.html
+        database_users:
+            entity: { class: UserControlBundle:User, property: username }
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+            dev:
+                pattern: ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+            #añadimos el provider que hemos creado a la seguridad y configuramos las rutas de login y logout
+            main:
+                anonymous: ~
+                provider: user_db_provider
+                form_login:
+                    login_path: /login
+                    check_path: /login_check
+                logout:
+                    path: logout
+                    target: /
 
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
+        access_control:
+           # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+           # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+           # - { path: ^/home, roles: [ROLE_USER, ROLE_ADMIN]}
+           # - { path: ^/publications, roles: [ROLE_USER, ROLE_ADMIN]}
 
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~

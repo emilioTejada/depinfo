@@ -86,7 +86,7 @@ class Matricula
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\Usuario, inversedBy=matricula $user
+     * @param \AppBundle\Entity\User, inversedBy=matricula $user
      * @return Matricula
      */
     public function setUser(\AppBundle\Entity\Usuario $user = null)
