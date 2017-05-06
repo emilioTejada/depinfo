@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserControlBundle\Entity\User;
 
 /**
  * Class Noticia
@@ -50,7 +51,7 @@ class Noticia
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="noticia")
+     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="noticia")
      */
     private $user;
 
@@ -139,10 +140,10 @@ class Noticia
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \UserControlBundle\Entity\User $user
      * @return Noticia
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser(\UserControlBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -152,7 +153,7 @@ class Noticia
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User 
+     * @return \UserControlBundle\Entity\User
      */
     public function getUser()
     {

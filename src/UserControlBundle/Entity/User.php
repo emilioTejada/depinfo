@@ -4,12 +4,18 @@ namespace UserControlBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Entity\Noticia;
+use AppBundle\Entity\Matricula;
 
 /**
  * User
  *
- * @ORM\Table(name="usuario")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="GestionUsuariosBundle\Repository\UsuarioRepository")
+ * @UniqueEntity(fields="username", message="Nombre ya en uso")
+ * @UniqueEntity(fields="email", message="Email ya en uso")
+ *
  */
 class User implements AdvancedUserInterface
 {
@@ -19,7 +25,6 @@ class User implements AdvancedUserInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @UniqueEntity(fields="username", message="Nombre ya en uso")
      *
      */
     private $id;
@@ -27,7 +32,7 @@ class User implements AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=50, unique=true)
+     * @ORM\Column(name="username", type="string", nullable=false, length=50, unique=true)
      */
     // este es el campo mas importante, sobre el se hace la autenticacion de symfony, no tocar
     private $username;
@@ -56,7 +61,7 @@ class User implements AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=100)
+     * @ORM\Column(name="email", type="string", unique=true, nullable=false, length=100)
      */
     private $email;
 
@@ -83,6 +88,21 @@ class User implements AdvancedUserInterface
 
 
     /**
+     * @var Noticia
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Noticia", mappedBy="user")
+     */
+    private $noticia;
+
+    /**
+     * @var Matricula
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Matricula", mappedBy="user")
+     */
+    private $matricula;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -93,9 +113,9 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Set nick
+     * Set username
      *
-     * @param string $nick
+     * @param string $username
      * @return User
      */
     public function setUsername($username)

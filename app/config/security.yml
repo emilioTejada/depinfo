@@ -8,18 +8,16 @@ security:
         MantenimientoBundle\Entity\Usuarios: bcrypt
 
     providers:
-      user_db_provider:
+        user_db_provider:
         # in this example, users are stored via Doctrine in the database
         # To see the users at src/AppBundle/DataFixtures/ORM/LoadFixtures.php
         # To load users from somewhere else: http://symfony.com/doc/current/cookbook/security/custom_provider.html
-        database_users:
             entity: { class: UserControlBundle:User, property: username }
 
     firewalls:
             dev:
                 pattern: ^/(_(profiler|wdt)|css|images|js)/
                 security: false
-            #añadimos el provider que hemos creado a la seguridad y configuramos las rutas de login y logout
             main:
                 anonymous: ~
                 provider: user_db_provider
@@ -30,7 +28,7 @@ security:
                     path: logout
                     target: /
 
-        access_control:
+    access_control:
            # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
            # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
            # - { path: ^/home, roles: [ROLE_USER, ROLE_ADMIN]}

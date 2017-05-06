@@ -9,6 +9,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use UserControlBundle\Entity\User;
+
 
 /**
  * Matricula
@@ -38,7 +40,7 @@ class Matricula
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="matricula");
+     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="matricula");
      */
     private $user;
 
@@ -86,10 +88,10 @@ class Matricula
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User, inversedBy=matricula $user
+     * @param User, inversedBy=matricula
      * @return Matricula
      */
-    public function setUser(\AppBundle\Entity\Usuario $user = null)
+    public function setUser($user = null)
     {
         $this->user = $user;
 
@@ -99,7 +101,7 @@ class Matricula
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\Usuario, inversedBy=matricula 
+     * @return User, inversedBy=matricula
      */
     public function getUser()
     {
