@@ -101,6 +101,20 @@ class User implements AdvancedUserInterface
      */
     private $matricula;
 
+    /**
+     * @var Sala
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sala", mappedBy="author",cascade={"persist","remove"})
+     * @Assert\NotNull(message="No puede dejar el campo vacio")
+     */
+    private $salasCreadas;
+
+    /**
+     * @var Mensaje
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Mensaje", mappedBy="user",cascade={"persist","remove"})
+     * @Assert\NotNull(message="No puede dejar el campo vacio")
+     */
+    private $mensajes;
+
 
     /**
      * Get id
@@ -294,6 +308,150 @@ class User implements AdvancedUserInterface
     public function getEnable()
     {
         return $this->enable;
+    }
+
+
+    /**
+     * Add salasCreadas
+     *
+     * @param \AppBundle\Entity\Sala $salas
+     * @return User
+     */
+
+    public function addSalasCreadas(\AppBundle\Entity\Sala $salas)
+    {
+        $this->salasCreadas[] = $salas;
+
+        return $this;
+    }
+
+    /**
+     * Remove salasCreadas
+     *
+     * @param \AppBundle\Entity\Sala $sala
+     */
+    public function removeSala(\AppBundle\Entity\Sala $sala)
+    {
+        $this->salasCreadas->removeElement($sala);
+    }
+
+    /**
+     * Get salasCreadas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSalasCreadas()
+    {
+        return $this->salasCreadas;
+    }
+
+    /**
+     * Add mensajes
+     *
+     * @param \AppBundle\Entity\Mensaje $mensajes
+     * @return User
+     */
+
+    public function addMensajes(\AppBundle\Entity\Mensaje $mensajes)
+    {
+        $this->mensajes[] = $mensajes;
+
+        return $this;
+    }
+
+    /**
+     * Remove mensajes
+     *
+     * @param \AppBundle\Entity\Mensaje $mensaje
+     */
+    public function removeMensaje(\AppBundle\Entity\Mensaje $mensaje)
+    {
+        $this->mensajes->removeElement($mensaje);
+    }
+
+    /**
+     * Get mensajes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMensajes()
+    {
+        return $this->mensajes;
+    }
+
+    /**
+     * Add noticia
+     *
+     * @param \AppBundle\Entity\Noticia $noticia
+     * @return User
+     */
+    public function addNoticium(\AppBundle\Entity\Noticia $noticia)
+    {
+        $this->noticia[] = $noticia;
+
+        return $this;
+    }
+
+    /**
+     * Remove noticia
+     *
+     * @param \AppBundle\Entity\Noticia $noticia
+     */
+    public function removeNoticium(\AppBundle\Entity\Noticia $noticia)
+    {
+        $this->noticia->removeElement($noticia);
+    }
+
+    /**
+     * Get noticia
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNoticia()
+    {
+        return $this->noticia;
+    }
+
+    /**
+     * Add matricula
+     *
+     * @param \AppBundle\Entity\Matricula $matricula
+     * @return User
+     */
+    public function addMatricula(\AppBundle\Entity\Matricula $matricula)
+    {
+        $this->matricula[] = $matricula;
+
+        return $this;
+    }
+
+    /**
+     * Remove matricula
+     *
+     * @param \AppBundle\Entity\Matricula $matricula
+     */
+    public function removeMatricula(\AppBundle\Entity\Matricula $matricula)
+    {
+        $this->matricula->removeElement($matricula);
+    }
+
+    /**
+     * Get matricula
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatricula()
+    {
+        return $this->matricula;
+    }
+
+
+    public function __construct()
+    {
+        $this->salasCreadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->noticia = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->matricula = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
