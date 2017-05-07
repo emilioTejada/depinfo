@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use UserControlBundle\Entity\User;
 use AppBundle\Entity\Sala;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Mensaje
@@ -26,18 +28,16 @@ class Mensaje
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="mensajes")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @Assert\NotNull(message="No puede dejar el campo vacio")
+     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="mensaje")
+     *
      */
     private $user;
 
     /**
      * @var Sala
      *
-     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\Sala", inversedBy="mensajes")
-     * @ORM\JoinColumn(name="sala_id", referencedColumnName="id")
-     * @Assert\NotNull(message="No puede dejar el campo vacio")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sala", inversedBy="mensajes")
+     * @ORM\JoinColumn(name="sala_id", referencedColumnName="id", nullable=true)
      */
     private $sala;
 
@@ -56,6 +56,12 @@ class Mensaje
     private $date;
 
 
+    public function __construct()
+    {
+        $this->setDate(new \DateTime());
+    }
+
+
     /**
      * Get id
      *
@@ -66,51 +72,51 @@ class Mensaje
         return $this->id;
     }
 
-    /**
-     * Set idUser
-     *
-     * @param integer $idUser
-     * @return Mensaje
-     */
-    public function setIdUser($idUser)
-    {
-        $this->idUser = $idUser;
+//    /**
+//     * Set idUser
+//     *
+//     * @param integer $idUser
+//     * @return Mensaje
+//     */
+//    public function setIdUser($idUser)
+//    {
+//        $this->idUser = $idUser;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get idUser
+//     *
+//     * @return integer
+//     */
+//    public function getIdUser()
+//    {
+//        return $this->idUser;
+//    }
 
-        return $this;
-    }
-
-    /**
-     * Get idUser
-     *
-     * @return integer 
-     */
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
-
-    /**
-     * Set idSala
-     *
-     * @param integer $idSala
-     * @return Mensaje
-     */
-    public function setIdSala($idSala)
-    {
-        $this->idSala = $idSala;
-
-        return $this;
-    }
-
-    /**
-     * Get idSala
-     *
-     * @return integer 
-     */
-    public function getIdSala()
-    {
-        return $this->idSala;
-    }
+//    /**
+//     * Set idSala
+//     *
+//     * @param integer $idSala
+//     * @return Mensaje
+//     */
+//    public function setIdSala($idSala)
+//    {
+//        $this->idSala = $idSala;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get idSala
+//     *
+//     * @return integer
+//     */
+//    public function getIdSala()
+//    {
+//        return $this->idSala;
+//    }
 
     /**
      * Set content
@@ -184,10 +190,10 @@ class Mensaje
     /**
      * Set sala
      *
-     * @param \UserControlBundle\Entity\Sala $sala
+     * @param \AppBundle\Entity\Sala $sala
      * @return Mensaje
      */
-    public function setSala(\UserControlBundle\Entity\Sala $sala)
+    public function setSala(\AppBundle\Entity\Sala $sala)
     {
         $this->sala = $sala;
 
@@ -197,7 +203,7 @@ class Mensaje
     /**
      * Get sala
      *
-     * @return \UserControlBundle\Entity\Sala
+     * @return \AppBundle\Entity\Sala
      */
     public function getSala()
     {

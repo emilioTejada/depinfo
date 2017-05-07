@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use UserControlBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sala
@@ -22,14 +23,14 @@ class Sala
      */
     private $id;
 
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="salasCreadas")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
-     * @Assert\NotNull(message="No puede dejar el campo vacio")
-     */
-    private $author;
+//    /**
+//     * @var User
+//     *
+//     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="salasCreadas")
+//     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+//     * @Assert\NotNull(message="No puede dejar el campo vacio")
+//     */
+//    private $author;
 
     /**
      * @var int

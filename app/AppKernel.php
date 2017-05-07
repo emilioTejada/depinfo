@@ -17,7 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
-            new UserControlBundle\GestionUsuariosBundle(),
+            new UserControlBundle\UserControlBundle(),
 
             //  bundles the SonataAdminBundle relies on
             new Sonata\CoreBundle\SonataCoreBundle(),

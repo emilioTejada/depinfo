@@ -2,17 +2,20 @@
 
 namespace UserControlBundle\Entity;
 
+use AppBundle\Entity\Mensaje;
+use AppBundle\Entity\Sala;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Entity\Noticia;
 use AppBundle\Entity\Matricula;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="GestionUsuariosBundle\Repository\UsuarioRepository")
+ * @ORM\Entity(repositoryClass="UserControlBundle\Repository\UsuarioRepository")
  * @UniqueEntity(fields="username", message="Nombre ya en uso")
  * @UniqueEntity(fields="email", message="Email ya en uso")
  *
@@ -68,14 +71,14 @@ class User implements AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="information", type="string", length=255)
+     * @ORM\Column(name="information", type="string", nullable=true, length=255)
      */
     private $information;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="rol", type="string", length=40)
+     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\Rol", inversedBy="user")
      */
     private $rol;
 
@@ -84,8 +87,7 @@ class User implements AdvancedUserInterface
      *
      * @ORM\Column(name="enable", type="boolean")
      */
-    private $enable;
-
+    private $enable = true;
 
     /**
      * @var Noticia
@@ -100,21 +102,18 @@ class User implements AdvancedUserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Matricula", mappedBy="user")
      */
     private $matricula;
-
-    /**
-     * @var Sala
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sala", mappedBy="author",cascade={"persist","remove"})
-     * @Assert\NotNull(message="No puede dejar el campo vacio")
-     */
-    private $salasCreadas;
+//
+//    /**
+//     * @var Sala
+//     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sala", mappedBy="author",cascade={"persist","remove"})
+//     */
+//    private $salasCreadas;
 
     /**
      * @var Mensaje
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Mensaje", mappedBy="user",cascade={"persist","remove"})
-     * @Assert\NotNull(message="No puede dejar el campo vacio")
      */
-    private $mensajes;
-
+    private $mensaje;
 
     /**
      * Get id
@@ -346,37 +345,37 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Add mensajes
+     * Add mensaje
      *
-     * @param \AppBundle\Entity\Mensaje $mensajes
+     * @param \AppBundle\Entity\Mensaje $mensaje
      * @return User
      */
 
-    public function addMensajes(\AppBundle\Entity\Mensaje $mensajes)
+    public function addMensaje(\AppBundle\Entity\Mensaje $mensaje)
     {
-        $this->mensajes[] = $mensajes;
+        $this->mensaje[] = $mensaje;
 
         return $this;
     }
 
     /**
-     * Remove mensajes
+     * Remove mensaje
      *
      * @param \AppBundle\Entity\Mensaje $mensaje
      */
     public function removeMensaje(\AppBundle\Entity\Mensaje $mensaje)
     {
-        $this->mensajes->removeElement($mensaje);
+        $this->mensaje->removeElement($mensaje);
     }
 
     /**
-     * Get mensajes
+     * Get mensaje
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getMensajes()
+    public function getMensaje()
     {
-        return $this->mensajes;
+        return $this->mensaje;
     }
 
     /**
@@ -448,10 +447,10 @@ class User implements AdvancedUserInterface
 
     public function __construct()
     {
-        $this->salasCreadas = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->noticia = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->matricula = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->salasCreadas = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->mensaje = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->noticia = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->matricula = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

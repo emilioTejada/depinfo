@@ -1,4 +1,4 @@
 services:
 #    gestion_usuarios.example:
-#        class: GestionUsuariosBundle\Example
+#        class: UserControlBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]

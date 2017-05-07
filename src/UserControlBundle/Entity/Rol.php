@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Rol
  *
  * @ORM\Table(name="rol")
- * @ORM\Entity(repositoryClass="GestionUsuariosBundle\Repository\RolRepository")
+ * @ORM\Entity(repositoryClass="UserControlBundle\Repository\RolRepository")
  */
 class Rol
 {
@@ -31,9 +31,18 @@ class Rol
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
+
+    /**
+     * @var
+     *
+     * @ORM\OneToMany(targetEntity="UserControlBundle\Entity\User", mappedBy="rol")
+     */
+    private $user;
+
+
 
 
     /**
