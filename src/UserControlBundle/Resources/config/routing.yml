@@ -2,6 +2,16 @@ UserControl_homepage:
     path:     /
     defaults: { _controller: UserControlBundle:Default:index }
 
+pruebas:
+    path:     /pruebas
+    defaults: { _controller: UserControlBundle:Default:pruebas }
+    methods: GET
+
+loginApp:
+    path:     /loginapp
+    defaults: { _controller: UserControlBundle:Default:loginApp }
+    methods: POST
+
 #Estas dos rutas (logout,login_check) ya tienen la funcionalidad creada automaticamente por symfony
 #de forma que solo tenemos que poner las rutas para que funcionen
 login_check:
