@@ -20,6 +20,7 @@ class DefaultController extends Controller
     }
     public function loginAppAction(Request $request)
     {
+        header("access-control-allow-origin: *");
         $username="";$password="";$getHash=null;
 
         $helpers = $this->get("app.helpers");
@@ -27,7 +28,8 @@ class DefaultController extends Controller
 
         $json = $request->get("json",null);
 
-        if($json != null){
+        if($json != null)
+        {
             $params = json_decode($json);
             if(isset($params->username)) {$username = $params->username;}
             if(isset($params->password)) {$password = $params->password;}
