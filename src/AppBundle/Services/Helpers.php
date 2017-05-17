@@ -7,7 +7,8 @@ class Helpers {
 	public function __construct($jwt_auth) {
 		$this->jwt_auth = $jwt_auth;
 	}
-	
+	//mediante este metodo comprobamos si el usuario esta correctamente autentificado comprobando su hash
+    //y ademas podemos obtener sus datos si los necesitamos
 	public function authCheck($hash, $getIdentity = false){
 		$jwt_auth = $this->jwt_auth;
 		
