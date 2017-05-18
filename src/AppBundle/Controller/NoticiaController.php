@@ -18,7 +18,7 @@ class NoticiaController extends Controller
      * @Route("/noticiasapp/{token}", name="noticiasapp")
      * @Method({"GET", "POST"})
      */
-    public function getNoticiasAppAction($token)
+    public function getNewsAppAction($token)
     {
         header("access-control-allow-origin: *");
         $helpers = $this->get("app.helpers");
@@ -26,12 +26,19 @@ class NoticiaController extends Controller
         if($helpers->authCheck($token)==true){
             $em = $this->getDoctrine()->getEntityManager();
 
-            $noticias = $em->getRepository('AppBundle:Noticia')->findAll();
+            $news = $em->getRepository('AppBundle:Noticia')->findAll();
+            $categories = $em->getRepository('AppBundle:Categoria')->findAll();
 
-            $prueba=[];
             //es necesario desarmar el objeto para eliminar los ciclos provocados por las relaciones
             //one to many y many to one
-            foreach ($noticias as $n){
+
+            $cats=[];
+            foreach ($categories as $cat){
+                $aux=["id" => $cat->getId(),"name" => $cat->getName()];
+                array_push($cats,$aux);
+            }
+            $ns=[];
+            foreach ($news as $n){
 
                 $categoria = $n->getCategoria();
                 $user = $n->getUser();
@@ -41,9 +48,11 @@ class NoticiaController extends Controller
                       "category" => ["id" => $categoria->getId(),"name" => $categoria->getName()],
                       "user" => $user->getName()];
 
-                array_push($prueba,$aux);
+                array_push($ns,$aux);
             }
-            return new JsonResponse($prueba);
+
+            $all = [$ns,$cats];
+            return new JsonResponse($all);
         }
         else{
             return $helpers->json(array(
