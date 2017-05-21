@@ -23,6 +23,7 @@ class NoticiaAdmin extends AbstractAdmin
             ->add('user', 'entity', array(
                 'class' => 'UserControlBundle\Entity\User',
                 'property' => 'username',
+                'attr'=>array("hidden" => true)
             ))
             ->add('name', 'text')
             ->add('description', 'textarea')
@@ -46,6 +47,8 @@ class NoticiaAdmin extends AbstractAdmin
         ->add('categoria.name')
         ->add('date');
     }
+
+
 
     public function toString($object)
     {

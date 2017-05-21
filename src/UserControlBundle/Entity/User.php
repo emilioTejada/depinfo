@@ -92,7 +92,7 @@ class User implements AdvancedUserInterface
     /**
      * @var Noticia
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Noticia", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Noticia", mappedBy="user",cascade={"persist","remove"})
      */
     private $noticia;
 

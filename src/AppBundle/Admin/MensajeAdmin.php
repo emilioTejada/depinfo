@@ -22,7 +22,8 @@ class MensajeAdmin extends AbstractAdmin
         $formMapper
             ->add('user', 'entity', array(
                 'class' => 'UserControlBundle\Entity\User',
-                'property' => 'name',
+                'property' => 'username',
+                'attr'=>array("hidden" => true)
             ))
             ->add('content', 'text');
     }
@@ -35,9 +36,10 @@ class MensajeAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+        ->add('user.username')
         ->addIdentifier('content')
         ->add('date')
-        ->add('user.name');
+        ;
     }
 
     public function toString($object)

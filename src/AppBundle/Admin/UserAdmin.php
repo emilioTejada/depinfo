@@ -22,13 +22,12 @@ class UserAdmin extends AbstractAdmin
         $formMapper
             ->tab('Personal Data')
                 ->with('Personal Data', array('class' => 'col-md-6'))
-
                     ->add('name', 'text')
                     ->add('surname', 'text')
                     ->add('username', 'text')
                     ->add('password', 'text')
                     ->add('email', 'email')
-            ->end()
+               ->end()
             ->end()
             ->tab('Configuration')
                 ->with('Configuration', array('class' => 'col-md-6'))
@@ -49,7 +48,23 @@ class UserAdmin extends AbstractAdmin
                             'inline' => 'table'
                         ))
                 ->end()
-            ->end();
+            ->end()
+            ->tab('News')
+                ->with('News', array(
+                    'class' => 'col-md-6',
+                    'box_class'   => 'box box-solid box-success',
+                    'description' => 'Noticias creadas por el usuario',
+                ))
+                    ->add('noticia', 'sonata_type_collection', array(
+                        'by_reference' => false,
+                        'required' => false), array(
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                            )
+                    )
+                ->end()
+            ->end()
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
