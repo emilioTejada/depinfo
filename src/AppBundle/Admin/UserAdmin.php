@@ -59,7 +59,12 @@ class UserAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name');
+        $listMapper->addIdentifier('username')
+        ->add('name')
+        ->add('surname')
+        ->add('enable')
+        ->add('rol.name')
+        ;
     }
 
     public function toString($object)

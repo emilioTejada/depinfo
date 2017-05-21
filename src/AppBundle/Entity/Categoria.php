@@ -111,9 +111,5 @@ class Categoria
     }
 
 
-    function __toString()
-    {
-        return $this->getName();
-    }
 
 }

@@ -47,7 +47,6 @@ class Noticia
      */
     private $categoria;
 
-
     /**
      * @var User
      *
@@ -55,7 +54,18 @@ class Noticia
      */
     private $user;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
 
+
+    public function __construct()
+    {
+        $this->date= new \DateTime();
+    }
 
 
     /**
@@ -160,10 +170,26 @@ class Noticia
         return $this->user;
     }
 
-    function __toString()
+     /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Noticia
+     */
+    public function setDate($date)
     {
-        return $this->getName();
+        $this->date = $date;
+
+        return $this;
     }
 
-
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
 }

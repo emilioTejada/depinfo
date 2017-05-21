@@ -25,6 +25,18 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Mensaje }
 
+    sonata.noticia:
+        class: AppBundle\Admin\NoticiaAdmin
+        arguments: [~, AppBundle\Entity\Noticia, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Noticia }
+
+    sonata.categoria:
+        class: AppBundle\Admin\CategoriaAdmin
+        arguments: [~, AppBundle\Entity\Categoria, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Categoria }
+
     app.jwt_auth:
         class: AppBundle\Services\JwtAuth
         arguments: ["@doctrine.orm.entity_manager"]

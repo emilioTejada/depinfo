@@ -262,4 +262,17 @@ class Sala
     {
         $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Add mensajes
+     *
+     * @param \AppBundle\Entity\Mensaje $mensajes
+     * @return Sala
+     */
+    public function addMensaje(\AppBundle\Entity\Mensaje $mensajes)
+    {
+        $this->mensajes[] = $mensajes;
+
+        return $this;
+    }
 }
