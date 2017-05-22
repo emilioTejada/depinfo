@@ -2,9 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Noticia;
-
-use AppBundle\Entity\Categoria;
+use AppBundle\Entity\Mensaje;
+use AppBundle\Entity\Sala;
 use UserControlBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,21 +11,28 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class NoticiaController extends Controller
+class SalaController extends Controller
 {
     /**
-     * @Route("/noticiasapp/{token}", name="noticiasapp")
+     * @Route("/salasapp/{token}", name="salasapp")
      * @Method({"GET", "POST"})
      */
-    public function getNewsAppAction($token)
+    public function getSalasAppAction($token)
     {
         header("access-control-allow-origin: *");
         $helpers = $this->get("app.helpers");
 
         if($helpers->authCheck($token)==true){
+            $user = $helpers->authCheck($token,true);
             $em = $this->getDoctrine()->getEntityManager();
 
-            $news = $em->getRepository('AppBundle:Noticia')->findAll();
+            $salas = $em->getRepository('AppBundle:Sala')->findAll();
+
+            var_dump($user->sub);
+            die();
+            /*$em = $this->getDoctrine()->getEntityManager();
+
+            $news = $em->getRepository('AppBundle:Sala')->findAll();
             $categories = $em->getRepository('AppBundle:Categoria')->findAll();
 
             //es necesario desarmar el objeto para eliminar los ciclos provocados por las relaciones
@@ -46,14 +52,13 @@ class NoticiaController extends Controller
                       "name" => $n->getName() ,
                       "description" => $n->getDescription(),
                       "category" => ["id" => $categoria->getId(),"name" => $categoria->getName()],
-                      "fecha" => $n->getDate(),
                       "user" => $user->getName()];
 
                 array_push($ns,$aux);
             }
 
             $all = [$ns,$cats];
-            return new JsonResponse($all);
+            return new JsonResponse($all);*/
         }
         else{
             return $helpers->json(array(
@@ -61,5 +66,8 @@ class NoticiaController extends Controller
                 "data" => "error de autenticacion, token incorrecto"
             ));
         }
+
+
+
     }
 }
