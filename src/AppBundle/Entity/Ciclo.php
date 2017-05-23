@@ -59,7 +59,7 @@ class Ciclo
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,7 +82,7 @@ class Ciclo
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -105,7 +105,7 @@ class Ciclo
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -138,7 +138,7 @@ class Ciclo
     /**
      * Get asignatura
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAsignatura()
     {

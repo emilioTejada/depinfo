@@ -23,14 +23,24 @@ class Sala
      */
     private $id;
 
-//    /**
-//     * @var User
-//     *
-//     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="salasCreadas")
-//     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
-//     * @Assert\NotNull(message="No puede dejar el campo vacio")
-//     */
-//    private $author;
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="salasCreadas")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @Assert\NotNull(message="No puede dejar el campo vacio")
+     */
+    private $author;
+
+    /**
+     * @var User
+     * @ORM\ManyToMany(targetEntity="UserControlBundle\Entity\User", mappedBy="salas")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @Assert\NotNull(message="No puede dejar el campo vacio")
+     */
+    private $users;
+
+
 
     /**
      * @var int
@@ -78,7 +88,7 @@ class Sala
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -147,7 +157,7 @@ class Sala
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -170,7 +180,7 @@ class Sala
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -193,7 +203,7 @@ class Sala
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -216,7 +226,7 @@ class Sala
     /**
      * Get year
      *
-     * @return integer 
+     * @return integer
      */
     public function getYear()
     {
@@ -274,5 +284,38 @@ class Sala
         $this->mensajes[] = $mensajes;
 
         return $this;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \UserControlBundle\Entity\User $users
+     * @return Sala
+     */
+    public function addUser(\UserControlBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \UserControlBundle\Entity\User $users
+     */
+    public function removeUser(\UserControlBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

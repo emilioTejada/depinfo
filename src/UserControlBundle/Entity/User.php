@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Entity\Noticia;
 use AppBundle\Entity\Matricula;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping\JoinTable;
 
 /**
  * User
@@ -102,12 +103,20 @@ class User implements AdvancedUserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Matricula", mappedBy="user")
      */
     private $matricula;
-//
-//    /**
-//     * @var Sala
-//     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sala", mappedBy="author",cascade={"persist","remove"})
-//     */
-//    private $salasCreadas;
+
+    /**
+     * @var Sala
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sala", mappedBy="author",cascade={"persist","remove"})
+     */
+    private $salasCreadas;
+
+    /**
+     * @var Sala
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sala", inversedBy="users", cascade={"persist","remove"})
+     * @JoinTable(name="users_salas")
+     */
+    private $salas;
+
 
     /**
      * @var Mensaje
@@ -555,5 +564,51 @@ class User implements AdvancedUserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * Add salasCreadas
+     *
+     * @param \AppBundle\Entity\Sala $salasCreadas
+     * @return User
+     */
+    public function addSalasCreada(\AppBundle\Entity\Sala $salasCreadas)
+    {
+        $this->salasCreadas[] = $salasCreadas;
+
+        return $this;
+    }
+
+    /**
+     * Remove salasCreadas
+     *
+     * @param \AppBundle\Entity\Sala $salasCreadas
+     */
+    public function removeSalasCreada(\AppBundle\Entity\Sala $salasCreadas)
+    {
+        $this->salasCreadas->removeElement($salasCreadas);
+    }
+
+    /**
+     * Add salas
+     *
+     * @param \AppBundle\Entity\Sala $salas
+     * @return User
+     */
+    public function addSala(\AppBundle\Entity\Sala $salas)
+    {
+        $this->salas[] = $salas;
+
+        return $this;
+    }
+
+    /**
+     * Get salas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSalas()
+    {
+        return $this->salas;
     }
 }

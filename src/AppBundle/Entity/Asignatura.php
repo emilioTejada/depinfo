@@ -52,7 +52,7 @@ class Asignatura
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -75,7 +75,7 @@ class Asignatura
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -98,7 +98,7 @@ class Asignatura
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -121,7 +121,7 @@ class Asignatura
     /**
      * Get curso
      *
-     * @return string 
+     * @return string
      */
     public function getCurso()
     {
@@ -144,7 +144,7 @@ class Asignatura
     /**
      * Get ciclo
      *
-     * @return \AppBundle\Entity\Ciclo 
+     * @return \AppBundle\Entity\Ciclo
      */
     public function getCiclo()
     {

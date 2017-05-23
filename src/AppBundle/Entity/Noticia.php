@@ -71,7 +71,7 @@ class Noticia
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -94,7 +94,7 @@ class Noticia
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -117,7 +117,7 @@ class Noticia
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -140,7 +140,7 @@ class Noticia
     /**
      * Get categoria
      *
-     * @return \AppBundle\Entity\Categoria 
+     * @return \AppBundle\Entity\Categoria
      */
     public function getCategoria()
     {
@@ -186,7 +186,7 @@ class Noticia
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {

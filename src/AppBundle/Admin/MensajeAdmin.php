@@ -30,15 +30,21 @@ class MensajeAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('content');
+        $datagridMapper
+            ->add('user', null, array(), 'entity', array(
+                'class'    => 'UserControlBundle\Entity\User',
+                'choice_label' => 'username', //
+            ))
+            ->add("date")
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->add('user.username')
-        ->addIdentifier('content')
-        ->add('date')
+            ->add('user.username')
+            ->addIdentifier('content')
+            ->add('date')
         ;
     }
 
