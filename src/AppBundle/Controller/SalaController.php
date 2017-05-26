@@ -26,39 +26,60 @@ class SalaController extends Controller
             $user = $helpers->authCheck($token,true);
             $em = $this->getDoctrine()->getEntityManager();
 
-            $salas = $em->getRepository('AppBundle:Sala')->findAll();
+            $rooms = $em->getRepository('AppBundle:Sala')->findAll();
 
-            var_dump($user->sub);
-            die();
-            /*$em = $this->getDoctrine()->getEntityManager();
+            $all=[];
+            $messages = [];
+            $users = [];
 
-            $news = $em->getRepository('AppBundle:Sala')->findAll();
-            $categories = $em->getRepository('AppBundle:Categoria')->findAll();
+            foreach ($rooms as $room){
+                $flag = false;
 
-            //es necesario desarmar el objeto para eliminar los ciclos provocados por las relaciones
-            //one to many y many to one
+                foreach ($room->getUsers() as $us){
+                    if($us->getId()==$user->sub){
+                        $u = ["id" => $us->getId(),
+                            "username" => $us->getUsername(),
+                            "name" => $us->getName(),
+                            "information" => $us->getInformation()
+                        ];
+                        array_push($users,$u);
+                        $flag=true;
+                    }
 
-            $cats=[];
-            foreach ($categories as $cat){
-                $aux=["id" => $cat->getId(),"name" => $cat->getName()];
-                array_push($cats,$aux);
+                }
+
+                if($flag==true)
+                {
+                    foreach ($room->getMensajes() as $message) {
+                        $m = ["id" => $message->getId(),
+                            "user" => ["id" => $message->getUser()->getId(),
+                                "username" => $message->getUser()->getUsername(),
+                                "name" => $message->getUser()->getName(),
+                                "information" => $message->getUser()->getInformation()
+                            ],
+                            "content" => $message->getContent(),
+                            "date" => $message->getDate()
+                        ];
+                        array_push($messages,$m);
+                    }
+
+                    $aux=[
+                        "id" => $room->getId(),
+                        "title" => $room->getTitle() ,
+                        "description" => $room->getDescription(),
+                        "year" => $room->getYear(),
+                        "author" => ["id" => $room->getAuthor()->getId(),
+                            "username" => $room->getAuthor()->getUsername(),
+                            "name" => $room->getAuthor()->getName(),
+                            "information" => $room->getAuthor()->getInformation()
+                        ],
+                        "users" => $users,
+                        "messages" => $messages,
+                    ];
+                    array_push($all,$aux);
+                }
             }
-            $ns=[];
-            foreach ($news as $n){
-
-                $categoria = $n->getCategoria();
-                $user = $n->getUser();
-                $aux=["id" => $n->getId(),
-                      "name" => $n->getName() ,
-                      "description" => $n->getDescription(),
-                      "category" => ["id" => $categoria->getId(),"name" => $categoria->getName()],
-                      "user" => $user->getName()];
-
-                array_push($ns,$aux);
-            }
-
-            $all = [$ns,$cats];
-            return new JsonResponse($all);*/
+            return new JsonResponse($all);
         }
         else{
             return $helpers->json(array(
