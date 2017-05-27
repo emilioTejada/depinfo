@@ -2,14 +2,14 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Asignatura;
+use AppBundle\Entity\Sala_tipo;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class AsignaturaAdmin extends AbstractAdmin
+class Sala_tipoAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -18,7 +18,7 @@ class AsignaturaAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('name')
-            ->add('curso')
+            ->add('description')
         ;
     }
 
@@ -30,12 +30,11 @@ class AsignaturaAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('name')
             ->add('description')
-            ->add('curso')
             ->add('_action', null, array(
                 'actions' => array(
-//                    'show' => array(),
-//                    'edit' => array(),
-//                    'delete' => array(),
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
                 )
             ))
         ;
@@ -49,11 +48,6 @@ class AsignaturaAdmin extends AbstractAdmin
         $formMapper
             ->add('name')
             ->add('description')
-            ->add('curso')
-            ->add('ciclo', 'entity', array(
-                'class' => 'AppBundle\Entity\Ciclo',
-                'property' => 'name',
-            ))
         ;
     }
 
@@ -65,15 +59,14 @@ class AsignaturaAdmin extends AbstractAdmin
         $showMapper
             ->add('name')
             ->add('description')
-            ->add('curso')
         ;
     }
 
     public function toString($object)
     {
-        return $object instanceof Asignatura
+        return $object instanceof Sala_tipo
             ? $object->getName()
-            : 'Asignatura'; // shown in the breadcrumb on the create view
+            : 'Sala_tipo'; // shown in the breadcrumb on the create view
     }
 
 }

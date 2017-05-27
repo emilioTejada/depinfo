@@ -29,12 +29,6 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Categoria }
 
-    sonata.sala:
-        class: AppBundle\Admin\SalaAdmin
-        arguments: [~, AppBundle\Entity\Sala, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Sala }
-
     sonata.ciclo:
         class: AppBundle\Admin\CicloAdmin
         arguments: [~, AppBundle\Entity\Ciclo, ~]
@@ -59,3 +53,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Ciclo }
 
+    app.admin.sala.tipo:
+        class: AppBundle\Admin\Sala_tipoAdmin
+        arguments: [~, AppBundle\Entity\Sala_tipo, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Sala_tipo }

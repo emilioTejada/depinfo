@@ -56,16 +56,16 @@ class Sala
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @var string
+     * @var Sala_tipo
      *
-     * @ORM\Column(name="type", type="string", length=40)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sala_tipo", inversedBy="sala")
      */
-    private $type;
+    private $sala_tipo;
 
     /**
      * @var int
@@ -182,12 +182,12 @@ class Sala
     /**
      * Set type
      *
-     * @param string $type
+     * @param Sala_tipo $sala_tipo
      * @return Sala
      */
-    public function setType($type)
+    public function setSalatipo($sala_tipo)
     {
-        $this->type = $type;
+        $this->sala_tipo = $sala_tipo;
 
         return $this;
     }
@@ -195,11 +195,11 @@ class Sala
     /**
      * Get type
      *
-     * @return string
+     * @return Sala_tipo
      */
-    public function getType()
+    public function getSalatipo()
     {
-        return $this->type;
+        return $this->sala_tipo;
     }
 
     /**

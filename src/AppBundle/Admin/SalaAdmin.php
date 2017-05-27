@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Sala;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -18,8 +19,11 @@ class SalaAdmin extends AbstractAdmin
         $datagridMapper
             ->add('title')
             ->add('description')
-            ->add('type')
             ->add('year')
+            ->add('sala_tipo', null, array(), 'entity', array(
+                'class'    => 'AppBundle\Entity\Sala_tipo',
+                'choice_label' => 'name', //
+            ))
         ;
     }
 
@@ -31,7 +35,6 @@ class SalaAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('title')
             ->add('description')
-            ->add('type')
             ->add('year')
             ->add('_action', null, array(
                 'actions' => array(
@@ -51,7 +54,10 @@ class SalaAdmin extends AbstractAdmin
         $formMapper
             ->add('title')
             ->add('description')
-            ->add('type')
+            ->add('sala_tipo', 'entity', array(
+                'class' => 'AppBundle\Entity\Sala_tipo',
+                'property' => 'name',
+            ))
             ->add('year')
             ->add('asignatura', 'entity', array(
                 'class' => 'AppBundle\Entity\Asignatura',
@@ -68,7 +74,6 @@ class SalaAdmin extends AbstractAdmin
         $showMapper
             ->add('title')
             ->add('description')
-            ->add('type')
             ->add('year')
         ;
     }
