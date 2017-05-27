@@ -27,7 +27,7 @@ class Sala
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="salasCreadas")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user", referencedColumnName="id")
      * @Assert\NotNull(message="No puede dejar el campo vacio")
      */
     private $author;
@@ -35,19 +35,16 @@ class Sala
     /**
      * @var User
      * @ORM\ManyToMany(targetEntity="UserControlBundle\Entity\User", mappedBy="salas")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="users.id", referencedColumnName="id")
      * @Assert\NotNull(message="No puede dejar el campo vacio")
      */
     private $users;
 
-
-
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idAsignatura", type="integer", nullable=true)
+     * @var Asignatura
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Asignatura", mappedBy="salas",cascade={"persist","remove"})
      */
-    private $idAsignatura;
+    private $asignatura;
 
     /**
      * @var string
@@ -119,27 +116,22 @@ class Sala
     }
 
     /**
-     * Set idAsignatura
-     *
-     * @param integer $idAsignatura
-     * @return Sala
+     * @return Asignatura
      */
-    public function setIdAsignatura($idAsignatura)
+    public function getAsignatura()
     {
-        $this->idAsignatura = $idAsignatura;
-
-        return $this;
+        return $this->asignatura;
     }
 
     /**
-     * Get idAsignatura
-     *
-     * @return integer
+     * @param Asignatura $asignatura
      */
-    public function getIdAsignatura()
+    public function setAsignatura($asignatura)
     {
-        return $this->idAsignatura;
+        $this->asignatura = $asignatura;
     }
+
+
 
     /**
      * Set title

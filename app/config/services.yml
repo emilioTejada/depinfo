@@ -7,35 +7,6 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
-    sonata.user:
-        class: AppBundle\Admin\UserAdmin
-        arguments: [~, UserControlBundle\Entity\User, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: User }
-
-    sonata.rol:
-        class: AppBundle\Admin\RolAdmin
-        arguments: [~, UserControlBundle\Entity\Rol, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Rol }
-
-    sonata.mensaje:
-        class: AppBundle\Admin\MensajeAdmin
-        arguments: [~, AppBundle\Entity\Mensaje, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Mensaje }
-
-    sonata.noticia:
-        class: AppBundle\Admin\NoticiaAdmin
-        arguments: [~, AppBundle\Entity\Noticia, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Noticia }
-
-    sonata.categoria:
-        class: AppBundle\Admin\CategoriaAdmin
-        arguments: [~, AppBundle\Entity\Categoria, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Categoria }
 
     app.jwt_auth:
         class: AppBundle\Services\JwtAuth

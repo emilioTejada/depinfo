@@ -50,6 +50,13 @@ class Asignatura
     private $ciclo;
 
     /**
+     * @var Sala
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sala", inversedBy="asignatura")
+     */
+    private $salas;
+
+    /**
      * Get id
      *
      * @return integer
