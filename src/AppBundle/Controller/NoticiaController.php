@@ -58,7 +58,7 @@ class NoticiaController extends Controller
         else{
             return $helpers->json(array(
                 "status" => "500",
-                "data" => "error de autenticacion, token incorrecto"
+                "data" => "Error de autenticacion, token incorrecto"
             ));
         }
     }

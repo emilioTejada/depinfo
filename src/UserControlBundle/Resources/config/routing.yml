@@ -24,6 +24,7 @@ login:
     path:     /login
     defaults: { _controller: UserControlBundle:User:login }
 
-register:
-    path:     /register
-    defaults: { _controller: UserControlBundle:User:register }
+
+#register:
+#    path:     /register
+#    defaults: { _controller: UserControlBundle:User:register }
