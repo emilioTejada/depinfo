@@ -16,7 +16,7 @@ class SalaController extends Controller
 {
     /**
      * @Route("/salasapp/{token}", name="roomsapp")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     public function getRoomsAppAction($token)
     {
@@ -66,7 +66,7 @@ class SalaController extends Controller
 
     /**
      * @Route("/salasapp/{token}/{idRoom}", name="getmessagesapp")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
 
     public function getMessagesAppAction($token,$idRoom)
