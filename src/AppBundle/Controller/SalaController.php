@@ -23,69 +23,62 @@ class SalaController extends Controller
         header("access-control-allow-origin: *");
         $helpers = $this->get("app.helpers");
 
-        if($helpers->authCheck($token)==true){
-            $user = $helpers->authCheck($token,true);
+        if($helpers->authCheck($token)==true) {
             $em = $this->getDoctrine()->getEntityManager();
-
-            $rooms = $em->getRepository('AppBundle:Sala')->findAll();
-
-            $all=[];
+            $all = [];
             $messages = [];
             $users = [];
 
-            foreach ($rooms as $room){
-                $flag = false;
+            $user = $helpers->authCheck($token, true);
+            $userFull = $em->getRepository('UserControlBundle:User')->find($user->sub);
 
-                foreach ($room->getUsers() as $us){
-                    if($us->getId()==$user->sub){
-                        $u = ["id" => $us->getId(),
-                            "username" => $us->getUsername(),
-                            "name" => $us->getName(),
-                            "information" => $us->getInformation()
-                        ];
-                        array_push($users,$u);
-                        $flag=true;
-                    }
 
-                }
-
-                if($flag==true)
-                {
-                    foreach ($room->getMensajes() as $message) {
-                        $m = ["id" => $message->getId(),
-                            "user" => ["id" => $message->getUser()->getId(),
-                                "username" => $message->getUser()->getUsername(),
-                                "name" => $message->getUser()->getName(),
-                                "information" => $message->getUser()->getInformation()
-                            ],
-                            "content" => $message->getContent(),
-                            "date" => $message->getDate()
-                        ];
-                        array_push($messages,$m);
-                    }
-
-                    $aux=[
-                        "id" => $room->getId(),
-                        "title" => $room->getTitle() ,
-                        "description" => $room->getDescription(),
-                        "year" => $room->getYear(),
-                        "author" => ["id" => $room->getAuthor()->getId(),
-                            "username" => $room->getAuthor()->getUsername(),
-                            "name" => $room->getAuthor()->getName(),
-                            "information" => $room->getAuthor()->getInformation()
-                        ],
-                        "users" => $users,
-                        "messages" => $messages,
+            foreach ($userFull->getSalas() as $room)
+            {
+                foreach ($room->getUsers() as $us) {
+                    $u = ["id" => $us->getId(),
+                        "username" => $us->getUsername(),
+                        "name" => $us->getName(),
+                        "information" => $us->getInformation()
                     ];
-                    array_push($all,$aux);
+                    array_push($users, $u);
                 }
+
+                foreach ($room->getMensajes() as $message) {
+                    $m = ["id" => $message->getId(),
+                          "user" => ["id" => $message->getUser()->getId(),
+                                      "username" => $message->getUser()->getUsername(),
+                                      "name" => $message->getUser()->getName(),
+                                      "information" => $message->getUser()->getInformation()
+                                    ],
+                          "content" => $message->getContent(),
+                          "date" => $message->getDate()
+                    ];
+                    array_push($messages, $m);
+                }
+
+                $aux = [
+                    "id" => $room->getId(),
+                    "title" => $room->getTitle(),
+                    "description" => $room->getDescription(),
+                    "year" => $room->getYear(),
+                    "author" => ["id" => $room->getAuthor()->getId(),
+                        "username" => $room->getAuthor()->getUsername(),
+                        "name" => $room->getAuthor()->getName(),
+                        "information" => $room->getAuthor()->getInformation()
+                    ],
+                    "users" => $users,
+                    "messages" => $messages,
+                ];
+                array_push($all, $aux);
+
             }
             return new JsonResponse($all);
         }
         else{
             return $helpers->json(array(
                 "status" => "500",
-                "data" => "error de autenticacion, token incorrecto"
+                "data" => "Error de autenticacion, token incorrecto"
             ));
         }
 
