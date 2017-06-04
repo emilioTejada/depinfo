@@ -48,16 +48,16 @@ class DefaultController extends Controller
             else
             {
                 return $helpers->json(array(
-                    "status" => "error",
-                    "data" => "Login not valid!!"
+                    "status" => "500",
+                    "data" => "Login no valido"
                 ));
             }
         }
         else
         {
             return $helpers->json(array(
-                "status" => "error",
-                "data" => "Send json with post !!"
+                "status" => "500",
+                "data" => "Login vacio"
             ));
         }
     }
