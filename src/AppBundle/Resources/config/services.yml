@@ -29,11 +29,11 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Categoria }
 
-    sonata.ciclo:
-        class: AppBundle\Admin\CicloAdmin
-        arguments: [~, AppBundle\Entity\Ciclo, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Ciclo }
+#    sonata.ciclo:
+#        class: AppBundle\Admin\CicloAdmin
+#        arguments: [~, AppBundle\Entity\Ciclo, ~]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, label: Ciclo }
 
     app.admin.asignatura:
         class: AppBundle\Admin\AsignaturaAdmin
@@ -46,6 +46,8 @@ services:
         arguments: [~, AppBundle\Entity\Sala, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Sala }
+        calls:
+            - [ addChild, [@sonata.user]]
 
     app.admin.ciclo:
         class: AppBundle\Admin\CicloAdmin
@@ -58,3 +60,11 @@ services:
         arguments: [~, AppBundle\Entity\Sala_tipo, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Sala_tipo }
+
+    app.menu_listener:
+          class: AppBundle\EventListener\MenuBuilderListener
+          tags:
+              - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }
+
+    app.xls_file_users_importer:
+        class: Appbundle\DataImport\XlsFileUsersImporter

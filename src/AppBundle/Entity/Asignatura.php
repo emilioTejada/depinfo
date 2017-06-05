@@ -31,7 +31,7 @@ class Asignatura
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $description;
 
@@ -52,7 +52,8 @@ class Asignatura
     /**
      * @var Sala
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sala", inversedBy="asignatura")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sala", mappedBy="asignatura",cascade={"persist","remove"})
+     *
      */
     private $salas;
 
@@ -157,4 +158,23 @@ class Asignatura
     {
         return $this->ciclo;
     }
+
+    /**
+     * @return Sala
+     */
+    public function getSalas(): Sala
+    {
+        return $this->salas;
+    }
+
+    /**
+     * @param Sala $salas
+     */
+    public function setSalas(Sala $salas)
+    {
+        $this->salas = $salas;
+    }
+
+
+
 }

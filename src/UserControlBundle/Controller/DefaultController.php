@@ -27,7 +27,7 @@ class DefaultController extends Controller
         $jwt_auth = $this->get("app.jwt_auth"); //para la autentificacion de usuarios por toquen
 
         $json = $request->get("json",null);
-
+//        $this->ge
         if($json != null)
         {
             $params = json_decode($json);

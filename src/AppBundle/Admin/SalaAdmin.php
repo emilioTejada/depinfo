@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use UserControlBundle\Entity\User;
+use UserControlBundle\Repository\UserRepository;
 
 class SalaAdmin extends AbstractAdmin
 {
@@ -53,15 +55,37 @@ class SalaAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('title')
+            ->add('asignatura', 'sonata_type_model_list', array(
+                'class' => 'AppBundle\Entity\Asignatura',
+                'btn_add' => false,
+                'btn_delete' => false,
+            ))
             ->add('description')
             ->add('sala_tipo', 'entity', array(
                 'class' => 'AppBundle\Entity\Sala_tipo',
                 'property' => 'name',
             ))
             ->add('year')
-            ->add('asignatura', 'entity', array(
-                'class' => 'AppBundle\Entity\Asignatura',
+
+            ->add('author', 'entity', array(
+                'class' => 'UserControlBundle\Entity\User',
                 'property' => 'name',
+                'query_builder' => function (UserRepository $userRepository)
+                {
+                    return $userRepository->findByRol("Admin");
+                },
+            ))
+            ->add('users', 'entity', array(
+                'class' => 'UserControlBundle\Entity\User',
+                'by_reference' => false,
+                'property' => 'name',
+                'multiple' => true,
+                'expanded' =>true,
+                'query_builder' => function (UserRepository $userRepository)
+                {
+                    return $userRepository->findByRol("Alumno");
+                },
+
             ))
         ;
     }
@@ -81,7 +105,16 @@ class SalaAdmin extends AbstractAdmin
     public function toString($object)
     {
         return $object instanceof Sala
-            ? $object->getName()
+            ? $object->getTitle()
             : 'Sala'; // shown in the breadcrumb on the create view
     }
+
+    public function getNewInstance()
+    {
+        $instance = parent::getNewInstance();
+        $instance->setYear(date("Y"));
+
+        return $instance;
+    }
+
 }

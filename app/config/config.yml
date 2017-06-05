@@ -77,3 +77,9 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+
+jms_di_extra:
+    locations:
+        all_bundles: false
+        bundles: [UserControlBundle, AppBundle]
+        directories: ["%kernel.root_dir%/../src"]

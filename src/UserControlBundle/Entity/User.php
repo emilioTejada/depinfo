@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping\JoinTable;
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="UserControlBundle\Repository\UsuarioRepository")
+ * @ORM\Entity(repositoryClass="UserControlBundle\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Nombre ya en uso")
  * @UniqueEntity(fields="email", message="Email ya en uso")
  *
@@ -111,9 +111,7 @@ class User implements AdvancedUserInterface
     private $salasCreadas;
 
     /**
-     * @var Sala
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sala", inversedBy="users", cascade={"persist","remove"})
-     * @JoinTable(name="users_salas")
      */
     private $salas;
 
@@ -456,7 +454,9 @@ class User implements AdvancedUserInterface
 
     public function __construct()
     {
-//        $this->salasCreadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salasCreadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salas = new \Doctrine\Common\Collections\ArrayCollection();
+
 //        $this->mensaje = new \Doctrine\Common\Collections\ArrayCollection();
 //        $this->noticia = new \Doctrine\Common\Collections\ArrayCollection();
 //        $this->matricula = new \Doctrine\Common\Collections\ArrayCollection();
@@ -592,7 +592,6 @@ class User implements AdvancedUserInterface
     /**
      * Add salas
      *
-     * @param \AppBundle\Entity\Sala $salas
      * @return User
      */
     public function addSala(\AppBundle\Entity\Sala $salas)

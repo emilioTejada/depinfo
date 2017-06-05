@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UserControlBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,22 +28,22 @@ class Sala
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="salasCreadas")
-     * @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @Assert\NotNull(message="No puede dejar el campo vacio")
      */
     private $author;
 
+
     /**
-     * @var User
+     * @var User[]
      * @ORM\ManyToMany(targetEntity="UserControlBundle\Entity\User", mappedBy="salas")
-     * @ORM\JoinColumn(name="users.id", referencedColumnName="id")
-     * @Assert\NotNull(message="No puede dejar el campo vacio")
+     *
      */
     private $users;
 
     /**
      * @var Asignatura
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Asignatura", mappedBy="salas",cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Asignatura", inversedBy="salas")
      */
     private $asignatura;
 
@@ -77,10 +78,8 @@ class Sala
     /**
      * @var Mensaje
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Mensaje", mappedBy="sala",cascade={"persist","remove"})
-     * @Assert\NotNull(message="No puede dejar el campo vacio")
      */
     private $mensajes;
-
 
     /**
      * Get id
@@ -115,6 +114,15 @@ class Sala
         return $this->author;
     }
 
+
+
+    public function __construct()
+    {
+        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * @return Asignatura
      */
@@ -130,8 +138,6 @@ class Sala
     {
         $this->asignatura = $asignatura;
     }
-
-
 
     /**
      * Set title
@@ -215,6 +221,7 @@ class Sala
         return $this;
     }
 
+
     /**
      * Get year
      *
@@ -224,7 +231,6 @@ class Sala
     {
         return $this->year;
     }
-
 
     /**
      * Add mensajes
@@ -260,11 +266,6 @@ class Sala
         return $this->mensajes;
     }
 
-    public function __construct()
-    {
-        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     /**
      * Add mensajes
      *
@@ -281,13 +282,12 @@ class Sala
     /**
      * Add users
      *
-     * @param \UserControlBundle\Entity\User $users
      * @return Sala
      */
-    public function addUser(\UserControlBundle\Entity\User $users)
+    public function addUser(User $user)
     {
-        $this->users[] = $users;
-
+        $this->users[] = $user;
+        $user->addSala($this);
         return $this;
     }
 
@@ -299,12 +299,12 @@ class Sala
     public function removeUser(\UserControlBundle\Entity\User $users)
     {
         $this->users->removeElement($users);
+        $users->removeSala($this);
     }
 
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getUsers()
     {

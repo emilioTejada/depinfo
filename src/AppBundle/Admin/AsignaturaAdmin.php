@@ -31,6 +31,7 @@ class AsignaturaAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('description')
             ->add('curso')
+            ->add('ciclo.name')
             ->add('_action', null, array(
                 'actions' => array(
 //                    'show' => array(),
