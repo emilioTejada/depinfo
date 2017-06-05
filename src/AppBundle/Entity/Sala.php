@@ -43,6 +43,7 @@ class Sala
     /**
      * @var Asignatura
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Asignatura", inversedBy="salas")
+     * @ORM\JoinColumn(name="asignatura_id", referencedColumnName="id", nullable=true)
      */
     private $asignatura;
 

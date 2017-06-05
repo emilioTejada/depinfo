@@ -59,6 +59,7 @@ class SalaAdmin extends AbstractAdmin
                 'class' => 'AppBundle\Entity\Asignatura',
                 'btn_add' => false,
                 'btn_delete' => false,
+                'required' => false
             ))
             ->add('description')
             ->add('sala_tipo', 'entity', array(
