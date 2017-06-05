@@ -33,7 +33,6 @@ class Sala
      */
     private $author;
 
-
     /**
      * @var User[]
      * @ORM\ManyToMany(targetEntity="UserControlBundle\Entity\User", mappedBy="salas")
