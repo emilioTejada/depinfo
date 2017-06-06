@@ -162,7 +162,7 @@ class Asignatura
     /**
      * @return Sala
      */
-    public function getSalas(): Sala
+    public function getSalas()
     {
         return $this->salas;
     }

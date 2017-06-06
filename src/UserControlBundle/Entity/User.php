@@ -604,7 +604,7 @@ class User implements AdvancedUserInterface
     /**
      * Get salas
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSalas()
     {
