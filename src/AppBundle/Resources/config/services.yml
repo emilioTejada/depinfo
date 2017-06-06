@@ -68,3 +68,5 @@ services:
 
     app.xls_file_users_importer:
         class: Appbundle\DataImport\XlsFileUsersImporter
+
+

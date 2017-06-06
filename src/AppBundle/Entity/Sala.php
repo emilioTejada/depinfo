@@ -81,6 +81,15 @@ class Sala
      */
     private $mensajes;
 
+
+    public function __construct()
+    {
+        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
     /**
      * Get id
      *
@@ -112,15 +121,6 @@ class Sala
     public function getAuthor()
     {
         return $this->author;
-    }
-
-
-
-    public function __construct()
-    {
-        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
-
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
