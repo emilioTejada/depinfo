@@ -84,12 +84,12 @@ class SalaController extends Controller
             foreach ($room->getMensajes() as $message) {
                 $m = ["id" => $message->getId(),
                       "user" => ["id" => $message->getUser()->getId(),
-                      "username" => $message->getUser()->getUsername(),
-                      "name" => $message->getUser()->getName(),
-                      "information" => $message->getUser()->getInformation()
-                    ],
-                    "content" => $message->getContent(),
-                    "date" => $message->getDate()
+                                  "username" => $message->getUser()->getUsername(),
+                                  "name" => $message->getUser()->getName(),
+                                  "information" => $message->getUser()->getInformation()
+                                 ],
+                      "content" => $message->getContent(),
+                      "date" => $message->getDate()
                 ];
                 array_push($messages, $m);
             }
