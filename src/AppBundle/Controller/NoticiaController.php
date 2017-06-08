@@ -14,6 +14,31 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NoticiaController extends Controller
 {
+
+    /**
+     * @Route("/autentapp/{token}", name="autenticacionapp")
+     * @Method({"GET"})
+     */
+    public function verifyLoginAppAction($token)
+    {
+        header("access-control-allow-origin: *");
+        $helpers = $this->get("app.helpers");
+
+        if($helpers->authCheck($token)==true){
+            $user=$helpers->authCheck($token,true);
+            return $helpers->json(array(
+                "status" => "200",
+                "valid" => $user->sub
+            ));
+        }
+        else{
+            return $helpers->json(array(
+                "status" => "500",
+                "data" => "Error de autenticacion, token incorrecto"
+            ));
+        }
+    }
+
     /**
      * @Route("/noticiasapp/{token}", name="noticiasapp")
      * @Method({"GET", "POST"})
