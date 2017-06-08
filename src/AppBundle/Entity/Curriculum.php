@@ -77,7 +77,7 @@ class Curriculum
     /**
      * @return TituloFP[]
      */
-    public function getTitulosFP(): array
+    public function getTitulosFP()
     {
         return $this->titulosFP;
     }
@@ -93,7 +93,7 @@ class Curriculum
     /**
      * @return TituloFP
      */
-    public function getCurrentFP(): TituloFP
+    public function getCurrentFP()
     {
         return $this->currentFP;
     }

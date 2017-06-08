@@ -43,7 +43,7 @@ class UserAdmin extends AbstractAdmin
                 ->with('Contributions', array('class' => 'col-md-6'))
                     ->add('mensaje', 'sonata_type_collection', array(
                             'by_reference' => false,
-                             'required' => false), array(
+                            'required' => false), array(
                             'edit' => 'inline',
                             'inline' => 'table'
                         ))
@@ -64,11 +64,29 @@ class UserAdmin extends AbstractAdmin
                     )
                 ->end()
             ->end()
-            ->tab('currículo')
+            ->tab('Currículum')
+                ->with('Currículum', array(
+                    'class' => 'col-md-6',
+                    'box_class'   => 'box box-solid box-success',
+                    'description' => 'Currículum del alumno',
+                ))
+                ->add('curriculum', null, array(
+                    'class' => 'AppBundle\Entity\Curriculum',
+                    'by_reference' => false,
+                    'required' => false), array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
 
+                    )
+                )
+                ->end()
             ->end()
         ;
     }
+
+
+
+
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
