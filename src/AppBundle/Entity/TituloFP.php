@@ -75,7 +75,7 @@ class TituloFP
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -140,7 +140,7 @@ class TituloFP
     /**
      * @param int $year
      */
-    public function setYear(int $year)
+    public function setYear($year)
     {
         $this->year = $year;
     }
@@ -156,7 +156,7 @@ class TituloFP
     /**
      * @param string $description
      */
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
         $this->description = $description;
     }

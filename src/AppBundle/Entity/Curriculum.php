@@ -61,7 +61,7 @@ class Curriculum
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -69,7 +69,7 @@ class Curriculum
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -117,7 +117,7 @@ class Curriculum
     /**
      * @param int $currentcourse
      */
-    public function setCurrentcourse(int $currentcourse)
+    public function setCurrentcourse($currentcourse)
     {
         $this->currentcourse = $currentcourse;
     }
