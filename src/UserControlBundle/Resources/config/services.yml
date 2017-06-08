@@ -2,3 +2,6 @@ services:
 #    gestion_usuarios.example:
 #        class: UserControlBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    repository.rol:
+          class: UserControlBundle\Repository\RolRepository
+          arguments: [ @doctrine.orm.entity_manager ]

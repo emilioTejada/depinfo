@@ -2,6 +2,7 @@
 
 namespace UserControlBundle\Entity;
 
+use AppBundle\Entity\Curriculum;
 use AppBundle\Entity\Mensaje;
 use AppBundle\Entity\Sala;
 use Doctrine\ORM\Mapping as ORM;
@@ -111,16 +112,22 @@ class User implements AdvancedUserInterface
     private $salasCreadas;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sala", inversedBy="users", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sala", mappedBy="users", cascade={"persist","remove"})
      */
     private $salas;
-
 
     /**
      * @var Mensaje
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Mensaje", mappedBy="user",cascade={"persist","remove"})
      */
     private $mensaje;
+
+    /**
+     * @var Curriculum
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="user")
+     */
+    private $curriculum;
 
     /**
      * Get id
@@ -610,4 +617,24 @@ class User implements AdvancedUserInterface
     {
         return $this->salas;
     }
+
+    /**
+     * @return Curriculum
+     */
+    public function getCurriculum()
+    {
+        return $this->curriculum;
+    }
+
+    /**
+     * @param Curriculum $curriculum
+     */
+    public function setCurriculum(Curriculum $curriculum)
+    {
+        $this->curriculum = $curriculum;
+    }
+
+
+
+
 }

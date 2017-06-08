@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class DataUploadType extends AbstractType
+class UserDataUploadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,10 +29,6 @@ class DataUploadType extends AbstractType
                         ])
                     ]
                 ]
-            )
-            ->add(
-                'dataType',
-                'hidden'
             )
             ->setMethod($options['method']);
     }

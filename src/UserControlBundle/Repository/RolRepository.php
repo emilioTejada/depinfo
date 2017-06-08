@@ -2,7 +2,11 @@
 
 namespace UserControlBundle\Repository;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping;
+use UserControlBundle\Entity\Rol;
+
 
 /**
  * RolRepository
@@ -12,4 +16,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class RolRepository extends EntityRepository
 {
+
+    public function __construct(EntityManager $em)
+    {
+        $this->getEntityManager();
+        parent::__construct($em, new Mapping\ClassMetadata(Rol::class));
+    }
+
+    public function findByName($rol)
+    {
+        return $this->createQueryBuilder('r')
+            ->Where('r.name = :rol')
+            ->setParameter('rol', $rol)
+            ->getQuery()
+        ;
+    }
+
 }
