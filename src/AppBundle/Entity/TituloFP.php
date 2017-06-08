@@ -67,7 +67,7 @@ class TituloFP
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -83,7 +83,7 @@ class TituloFP
     /**
      * @return Curriculum[]
      */
-    public function getCurriculum(): array
+    public function getCurriculum()
     {
         return $this->curriculum;
     }
@@ -99,7 +99,7 @@ class TituloFP
     /**
      * @return Curriculum[]
      */
-    public function getCurrentcurriculum(): array
+    public function getCurrentcurriculum()
     {
         return $this->currentcurriculum;
     }
@@ -116,7 +116,7 @@ class TituloFP
     /**
      * @return Ciclo
      */
-    public function getCiclo(): Ciclo
+    public function getCiclo()
     {
         return $this->ciclo;
     }
@@ -132,7 +132,7 @@ class TituloFP
     /**
      * @return int
      */
-    public function getYear(): int
+    public function getYear()
     {
         return $this->year;
     }
@@ -148,7 +148,7 @@ class TituloFP
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
