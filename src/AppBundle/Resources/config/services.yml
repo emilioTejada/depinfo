@@ -69,4 +69,8 @@ services:
     app.xls_file_users_importer:
         class: Appbundle\DataImport\XlsFileUsersImporter
 
-
+    app.admin.curriculum:
+        class: AppBundle\Admin\CurriculumAdmin
+        arguments: [~, AppBundle\Entity\Curriculum, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Curriculum }

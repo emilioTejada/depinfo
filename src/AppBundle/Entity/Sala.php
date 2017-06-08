@@ -35,7 +35,7 @@ class Sala
 
     /**
      * @var User[]
-     * @ORM\ManyToMany(targetEntity="UserControlBundle\Entity\User", mappedBy="salas")
+     * @ORM\ManyToMany(targetEntity="UserControlBundle\Entity\User", inversedBy="salas")
      *
      */
     private $users;

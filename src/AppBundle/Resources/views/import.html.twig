@@ -2,26 +2,38 @@
 {% block sonata_top_nav_menu %}
     poner migas
         <a href="{{ path('homepage', {'name': 'World'}) }}">
-            Statistik
+            Importación datos
         </a>
 
 {% endblock %}
 
 {% block content %}
     <h2>Importación de usuarios</h2>
-    {{ form_start(file_form) }}
+    {{ form_start(users_form) }}
         <div class="row">
             <div class="col-md-12">
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    {{ form_row(file_form.data) }}
+                    {{ form_row(users_form.data) }}
                 </div>
                 <div class="col-lg-2 col-md-2 margin-top-l text-right">
                     <button type="submit" class="btn btn-primary">{{ 'data_upload_form.upload'|trans }}</button>
                 </div>
             </div>
         </div>
-    {{ form_end(file_form) }}
+    {{ form_end(users_form) }}
 
-
+    <h2>Importación de Ciclos</h2>
+    {{ form_start(ciclos_form) }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                {{ form_row(ciclos_form.data) }}
+            </div>
+            <div class="col-lg-2 col-md-2 margin-top-l text-right">
+                <button type="submit" class="btn btn-primary">{{ 'data_upload_form.upload'|trans }}</button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(ciclos_form) }}
 
 {% endblock %}

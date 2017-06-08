@@ -64,6 +64,9 @@ class UserAdmin extends AbstractAdmin
                     )
                 ->end()
             ->end()
+            ->tab('currículo')
+
+            ->end()
         ;
     }
 

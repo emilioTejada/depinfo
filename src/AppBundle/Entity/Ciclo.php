@@ -31,13 +31,31 @@ class Ciclo
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $description;
 
     /**
-     * @return int
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
      */
+    private $plan;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $familia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $grado;
+
 
     /**
      * @var Asignatura
@@ -46,7 +64,11 @@ class Ciclo
      */
     private $asignatura;
 
-
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="ciclo")
+     */
+    private $titulofp;
 
     /**
      * Constructor
@@ -144,4 +166,73 @@ class Ciclo
     {
         return $this->asignatura;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTitulofp()
+    {
+        return $this->titulofp;
+    }
+
+    /**
+     * @param mixed $titulofp
+     */
+    public function setTitulofp($titulofp)
+    {
+        $this->titulofp = $titulofp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlan()
+    {
+        return $this->plan;
+    }
+
+    /**
+     * @param string $plan
+     */
+    public function setPlan(string $plan)
+    {
+        $this->plan = $plan;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFamilia()
+    {
+        return $this->familia;
+    }
+
+    /**
+     * @param string $familia
+     */
+    public function setFamilia(string $familia)
+    {
+        $this->familia = $familia;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGrado()
+    {
+        return $this->grado;
+    }
+
+    /**
+     * @param string $grado
+     */
+    public function setGrado(string $grado)
+    {
+        $this->grado = $grado;
+    }
+
+
+
+
+
 }

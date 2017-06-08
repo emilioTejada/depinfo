@@ -2,7 +2,7 @@
 
 namespace AppBundle\DataImport;
 
-use AppBundle\Entity\UploadedFileUsers;
+use AppBundle\Entity\UploadedDataDto;
 use Liuggio\ExcelBundle\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UserControlBundle\Repository\RolRepository;
@@ -33,7 +33,7 @@ class XlsFileUsersImporter extends Controller
 //    }
 
 
-    public function import(UploadedFileUsers $uploadedFileUsers){
+    public function import(UploadedDataDto $uploadedFileUsers){
 //        $phpExcelObject = $this->factoryExcel->createPHPExcelObject($uploadedFile->getRealPath());
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($uploadedFileUsers->getData()->getRealPath());
 

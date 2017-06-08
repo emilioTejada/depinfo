@@ -39,6 +39,12 @@ class Matricula
 
 
     /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $courser;
+
+    /**
      * @var User
      * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\User", inversedBy="matricula");
      */
