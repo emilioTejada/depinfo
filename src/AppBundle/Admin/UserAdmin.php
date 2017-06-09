@@ -70,9 +70,9 @@ class UserAdmin extends AbstractAdmin
                     'box_class'   => 'box box-solid box-success',
                     'description' => 'Currículum del alumno',
                 ))
-                ->add('curriculum', null, array(
-                    'class' => 'AppBundle\Entity\Curriculum',
-                    'by_reference' => false,
+                ->add('curriculum', 'sonata_type_admin', array(
+//                    'class' => 'AppBundle\Entity\Curriculum',
+//                    'by_reference' => false,
                     'required' => false), array(
                         'edit' => 'inline',
                         'inline' => 'table',

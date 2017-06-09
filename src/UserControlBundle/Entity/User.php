@@ -126,6 +126,7 @@ class User implements AdvancedUserInterface
      * @var Curriculum
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="user")
+     * @ORM\JoinColumn(name="curriculum_id", referencedColumnName="id", nullable=true)
      */
     private $curriculum;
 
@@ -463,6 +464,8 @@ class User implements AdvancedUserInterface
     {
         $this->salasCreadas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salas = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->curriculum = new Curriculum();
+
 
 //        $this->mensaje = new \Doctrine\Common\Collections\ArrayCollection();
 //        $this->noticia = new \Doctrine\Common\Collections\ArrayCollection();
