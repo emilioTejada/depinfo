@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserControlBundle\Entity\User;
 
-class DefaultController extends Controller
+class ImportController extends Controller
 {
 
     const DATA_UPLOAD_TYPE = 'AppBundle\form\DataUploadType';
@@ -32,7 +32,6 @@ class DefaultController extends Controller
      */
     public function importAction(Request $request)
     {
-
         $users = (new UploadedDataDto())->setDataType(UploadedDataDto::USERS);
         $users_form = $this->createForm(self::DATA_UPLOAD_TYPE, $users, ['label'=>'Importar datos de usuarios']);
         $ciclos = (new UploadedDataDto())->setDataType(UploadedDataDto::CICLOS);

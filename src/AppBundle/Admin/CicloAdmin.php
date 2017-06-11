@@ -2,6 +2,9 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Ciclo;
+use AppBundle\Repository\CicloRepository;
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -17,7 +20,16 @@ class CicloAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('name')
-            ->add('description')
+            ->add('plan')
+            ->add('familia')
+            ->add('grado', 'doctrine_orm_choice', array(
+                'query_builder' => function (CicloRepository $cicloRepository)
+                {
+                    return $cicloRepository->findDistintColumn("grado");
+                },
+            ))
+
+
         ;
     }
 
@@ -27,8 +39,11 @@ class CicloAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('grado')
             ->addIdentifier('name')
-            ->add('description')
+            ->add('familia')
+            ->add('plan')
+
             ->add('_action', null, array(
                 'actions' => array(
                 )

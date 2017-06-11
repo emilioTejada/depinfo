@@ -2,14 +2,14 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Curriculum;
+use AppBundle\Entity\TituloFP;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class CurriculumAdmin extends AbstractAdmin
+class Titulo_fpAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,7 +17,8 @@ class CurriculumAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('currentcourse')
+            ->add('year')
+            ->add('description')
         ;
     }
 
@@ -27,7 +28,10 @@ class CurriculumAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('currentcourse')
+            ->addIdentifier('id')
+            ->add('year')
+            ->add('description')
+            ->add('ciclo.name')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -44,13 +48,19 @@ class CurriculumAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('currentcourse')
-            ->add('tituloFp', 'sonata_type_collection', array(
+            ->add('year')
+            ->add('description', null, array(
+                'required' => false
+            ))
+            ->add('ciclo', 'sonata_type_model_list', array(
                 'by_reference' => false,
-                'required' => false), array(
-                'edit' => 'inline',
-                'inline' => 'table'
-            ));
+                'class' => 'AppBundle\Entity\Ciclo',
+                'btn_add'       => 'Add ciclo',      //Specify a custom label
+
+            ), array(
+                'placeholder' => 'Ningún ciclo seleccionado'
+            ))
+        ;
     }
 
     /**
@@ -59,17 +69,19 @@ class CurriculumAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('currentcourse')
-            ->add('titulo_fp')
+            ->add('id')
+            ->add('ciclo.name')
+            ->add('ciclo.familia')
+            ->add('descripcion')
+            ->add('year')
         ;
     }
 
+
     public function toString($object)
     {
-        return $object instanceof Curriculum
+        return $object instanceof TituloFP
             ? $object->getId()
-            : 'Curriculum'; // shown in the breadcrumb on the create view
+            : 'TituloFP'; // shown in the breadcrumb on the create view
     }
-
-
 }

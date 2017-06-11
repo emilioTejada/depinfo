@@ -26,15 +26,16 @@ class Curriculum
 
     /**
      * @var TituloFP[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\TituloFP", inversedBy="curriculum")
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="curriculum", cascade={"persist"}, orphanRemoval=true)
      */
-    private $titulosFP;
+    private $tituloFp;
 
-    /**
-     * @var TituloFP
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="currentcurriculum")
-     */
-    private $currentFP;
+//    /**
+//     * @var TituloFP
+//     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="currentcurriculum")
+//     */
+//    private $currentFP;
 
     /**
      * @var int
@@ -55,7 +56,7 @@ class Curriculum
      */
     public function __construct()
     {
-        $this->titulosFP = new ArrayCollection();
+        $this->tituloFp =new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -74,37 +75,32 @@ class Curriculum
         $this->id = $id;
     }
 
-    /**
-     * @return TituloFP[]
-     */
-    public function getTitulosFP()
+    public function getTituloFp()
     {
-        return $this->titulosFP;
+        return $this->tituloFp;
     }
 
     /**
-     * @param TituloFP[] $titulosFP
+     * @param TituloFP[] $tituloFp
      */
-    public function setTitulosFP(array $titulosFP)
+    public function setTituloFp(array $tituloFp)
     {
-        $this->titulosFP = $titulosFP;
+        $this->tituloFp = $tituloFp;
     }
 
-    /**
-     * @return TituloFP
-     */
-    public function getCurrentFP()
-    {
-        return $this->currentFP;
-    }
 
     /**
-     * @param TituloFP $currentFP
+     * Remove titulo
+     *
+     * @param TituloFP $titulo
      */
-    public function setCurrentFP(TituloFP $currentFP)
+    public function removeUser(TituloFP $titulo)
     {
-        $this->currentFP = $currentFP;
+        $this->tituloFp->removeElement($titulo);
+        $titulo->removeCurriculum($this);
     }
+
+
 
     /**
      * @return int
@@ -138,6 +134,31 @@ class Curriculum
         $this->user = $user;
     }
 
+
+    /**
+     * Add Titulo_fp
+     *
+     * @param \AppBundle\Entity\TituloFP $titulo
+     * @return Curriculum
+     */
+
+    public function addTituloFp(\AppBundle\Entity\TituloFP $titulo)
+    {
+        $this->tituloFp[] = $titulo;
+        $titulo->addCurriculum($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove mensajes
+     *
+     * @param \AppBundle\Entity\Mensaje $mensaje
+     */
+    public function removeTituloFp(\AppBundle\Entity\TituloFP $titulo)
+    {
+        $this->tituloFp->removeElement($titulo);
+    }
 
 
 

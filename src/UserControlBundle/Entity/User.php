@@ -125,7 +125,7 @@ class User implements AdvancedUserInterface
     /**
      * @var Curriculum
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="user", cascade={"persist","remove"})
      * @ORM\JoinColumn(name="curriculum_id", referencedColumnName="id", nullable=true)
      */
     private $curriculum;
@@ -322,41 +322,6 @@ class User implements AdvancedUserInterface
     public function getEnable()
     {
         return $this->enable;
-    }
-
-
-    /**
-     * Add salasCreadas
-     *
-     * @param \AppBundle\Entity\Sala $salas
-     * @return User
-     */
-
-    public function addSalasCreadas(\AppBundle\Entity\Sala $salas)
-    {
-        $this->salasCreadas[] = $salas;
-
-        return $this;
-    }
-
-    /**
-     * Remove salasCreadas
-     *
-     * @param \AppBundle\Entity\Sala $sala
-     */
-    public function removeSala(\AppBundle\Entity\Sala $sala)
-    {
-        $this->salasCreadas->removeElement($sala);
-    }
-
-    /**
-     * Get salasCreadas
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSalasCreadas()
-    {
-        return $this->salasCreadas;
     }
 
     /**
@@ -576,6 +541,32 @@ class User implements AdvancedUserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
+
+    /**
+     * Add salasCreadas
+     *
+     * @param \AppBundle\Entity\Sala $salas
+     * @return User
+     */
+
+    public function addSalasCreadas(\AppBundle\Entity\Sala $salas)
+    {
+        $this->salasCreadas[] = $salas;
+
+        return $this;
+    }
+
+    /**
+     * Get salasCreadas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSalasCreadas()
+    {
+        return $this->salasCreadas;
+    }
+
+
     /**
      * Add salasCreadas
      *
@@ -610,6 +601,17 @@ class User implements AdvancedUserInterface
 
         return $this;
     }
+
+    /**
+     * Remove salas
+     *
+     * @param \AppBundle\Entity\Sala $sala
+     */
+    public function removeSala(\AppBundle\Entity\Sala $sala)
+    {
+        $this->salas->removeElement($sala);
+    }
+
 
     /**
      * Get salas

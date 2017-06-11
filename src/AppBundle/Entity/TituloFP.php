@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: develop
- * Date: 7/06/17
- * Time: 9:55
- */
 
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * TITULOFP
@@ -47,22 +42,27 @@ class TituloFP
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $description;
 
 
     /**
-     * @var Curriculum[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Curriculum", mappedBy="titulosFP")
+     * @var Curriculum
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="tituloFp",cascade={"persist","remove"})
      */
     private $curriculum;
 
-    /**
-     * @var Curriculum[]
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="currentFP")
-     */
-    private $currentcurriculum;
+//    /**
+//     * @var Curriculum[]
+//     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="currentFP")
+//     */
+//    private $currentcurriculum;
+
+    public function __construct()
+    {
+    }
 
     /**
      * @return int
@@ -81,37 +81,19 @@ class TituloFP
     }
 
     /**
-     * @return Curriculum[]
      */
     public function getCurriculum()
     {
         return $this->curriculum;
     }
 
-    /**
-     * @param Curriculum[] $curriculum
-     */
-    public function setCurriculum(array $curriculum)
-    {
-        $this->curriculum = $curriculum;
-    }
-
-    /**
-     * @return Curriculum[]
-     */
-    public function getCurrentcurriculum()
-    {
-        return $this->currentcurriculum;
-    }
-
-    /**
-     * @param Curriculum[] $currentcurriculum
-     */
-    public function setCurrentcurriculum(array $currentcurriculum)
-    {
-        $this->currentcurriculum = $currentcurriculum;
-    }
-
+//    /**
+//     * @param Curriculum[] $curriculum
+//     */
+//    public function setCurriculum(array $curriculum)
+//    {
+//        $this->curriculum = $curriculum;
+//    }
 
     /**
      * @return Ciclo
@@ -161,5 +143,25 @@ class TituloFP
         $this->description = $description;
     }
 
+    /**
+     * Add Curriculum
+     *
+     * @return TituloFP
+     */
+    public function addCurriculum($curriculum)
+    {
+        $this->curriculum = $curriculum;
 
+        return $this;
+    }
+
+    /**
+     * Remove curriculum
+     *
+     * @param Curriculum $curriculum
+     */
+    public function removeCurriculum(Curriculum $curriculum)
+    {
+        $this->curriculum->removeElement($curriculum);
+    }
 }
