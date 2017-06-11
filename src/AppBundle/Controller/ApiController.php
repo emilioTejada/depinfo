@@ -101,18 +101,26 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/noticiasapp/{token}", name="noticiasapp")
-     * @Method({"GET", "POST"})
+     * @Route("/noticiasapp/{token}/{category}", name="noticiasapp")
+     * @Method({"GET"})
      */
-    public function getNewsAppAction($token)
+    public function getNewsAppAction($token,$category)
     {
         header("access-control-allow-origin: *");
         $helpers = $this->get("app.helpers");
 
-        if($helpers->authCheck($token)==true){
+        if($helpers->authCheck($token)==true)
+        {
             $em = $this->getDoctrine()->getEntityManager();
 
-            $news = $em->getRepository('AppBundle:Noticia')->findAll();
+            if($category != -1)
+            {
+                $cat = $em->getRepository('AppBundle:Categoria')->find($category);
+                $news = $cat->getNoticia();
+            }
+            else{
+                $news = $em->getRepository('AppBundle:Noticia')->findAll();
+            }
             $categories = $em->getRepository('AppBundle:Categoria')->findAll();
 
             //es necesario desarmar el objeto para eliminar los ciclos provocados por las relaciones
@@ -132,13 +140,52 @@ class ApiController extends Controller
                     "name" => $n->getName() ,
                     "description" => $n->getDescription(),
                     "category" => ["id" => $categoria->getId(),"name" => $categoria->getName()],
-                    "fecha" => $n->getDate(),
-                    "user" => $user->getName()];
+                    "date" => $n->getDate(),
+                    "author" => $user->getName()];
 
                 array_push($ns,$aux);
             }
 
             $all = [$ns,$cats];
+            return new JsonResponse($all);
+        }
+        else{
+            return $helpers->json(array(
+                "status" => "500",
+                "data" => "Error de autenticacion, token incorrecto"
+            ));
+        }
+    }
+
+    /**
+     * @Route("/roomapi/{token}", name="roomsapi")
+     * @Method({"GET"})
+     */
+    public function getRoomsApiAction($token)
+    {
+        header("access-control-allow-origin: *");
+        $helpers = $this->get("app.helpers");
+
+        if($helpers->authCheck($token)==true) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $all = [];
+
+            $user = $helpers->authCheck($token, true);
+            $userFull = $em->getRepository('UserControlBundle:User')->find($user->sub);
+
+
+            foreach ($userFull->getSalas() as $room)
+            {
+                $aux = [
+                    "id" => $room->getId(),
+                    "title" => $room->getTitle(),
+                    "description" => $room->getDescription(),
+                    "year" => $room->getYear(),
+                    "author" => $room->getAuthor()->getName()
+                ];
+                array_push($all, $aux);
+
+            }
             return new JsonResponse($all);
         }
         else{
