@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,12 +71,20 @@ class Ciclo
      */
     private $titulofp;
 
+
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Curriculum", mappedBy="currentCiclo",  cascade={"persist"})
+     */
+    private $curriculum;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->asignatura = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->curriculum = new ArrayCollection();
     }
 
     /**
@@ -133,6 +142,23 @@ class Ciclo
     {
         return $this->description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCurriculum()
+    {
+        return $this->curriculum;
+    }
+
+    /**
+     * @param mixed $curriculum
+     */
+    public function setCurriculum($curriculum)
+    {
+        $this->curriculum = $curriculum;
+    }
+
 
     /**
      * Add asignatura

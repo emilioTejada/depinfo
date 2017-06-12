@@ -50,7 +50,7 @@ class TituloFP
     /**
      * @var Curriculum
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="tituloFp",cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="tituloFp",cascade={"persist"})
      */
     private $curriculum;
 

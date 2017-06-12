@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class CurriculumAdmin extends AbstractAdmin
@@ -27,7 +28,10 @@ class CurriculumAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('currentcourse')
+            ->add('id')
+            ->add('user.name')
+            ->add('user.surname')
+            ->add('user.username')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -44,7 +48,27 @@ class CurriculumAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('currentcourse')
+            ->with('Curso actual', array(
+                'class' => 'col-md-6',
+                'box_class'   => 'box box-solid box-success',
+                'description' => 'Currículum del alumno',
+            ))
+            ->add('currentcourse', 'choice', array(
+                'choices' => array(
+                    1 => 'primero',
+                    2 => 'segundo',
+                )
+            ))
+            ->add('currentCiclo', 'sonata_type_model_list', array(
+                'by_reference' => false,
+                'required' => false,
+                'class' => 'AppBundle\Entity\Ciclo',
+                'btn_add'       => 'Add ciclo',      //Specify a custom label
+
+            ), array(
+                'placeholder' => 'Ningún ciclo seleccionado'
+            ))
+            ->end()
             ->add('tituloFp', 'sonata_type_collection', array(
                 'by_reference' => false,
                 'required' => false), array(

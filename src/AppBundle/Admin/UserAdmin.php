@@ -65,11 +65,6 @@ class UserAdmin extends AbstractAdmin
                 ->end()
             ->end()
             ->tab('Currículum')
-                ->with('Currículum', array(
-                    'class' => 'col-md-6',
-                    'box_class'   => 'box box-solid box-success',
-                    'description' => 'Currículum del alumno',
-                ))
                 ->add('curriculum', 'sonata_type_admin', array(
 //                    'class' => 'AppBundle\Entity\Curriculum',
 //                    'by_reference' => false,

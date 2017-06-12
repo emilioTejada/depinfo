@@ -80,7 +80,7 @@ class User implements AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\Rol", inversedBy="user")
+     * @ORM\ManyToOne(targetEntity="UserControlBundle\Entity\Rol", inversedBy="user", cascade={"persist"})
      */
     private $rol;
 
@@ -125,7 +125,7 @@ class User implements AdvancedUserInterface
     /**
      * @var Curriculum
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="user", cascade={"persist","remove"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Curriculum", inversedBy="user", cascade={"persist","remove"},orphanRemoval=true)
      * @ORM\JoinColumn(name="curriculum_id", referencedColumnName="id", nullable=true)
      */
     private $curriculum;

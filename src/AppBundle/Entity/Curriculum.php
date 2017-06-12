@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Repository\CicloRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UserControlBundle\Entity\User;
@@ -27,15 +28,16 @@ class Curriculum
     /**
      * @var TituloFP[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="curriculum", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="curriculum", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $tituloFp;
 
-//    /**
-//     * @var TituloFP
-//     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="currentcurriculum")
-//     */
-//    private $currentFP;
+    /**
+     * @var Ciclo
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ciclo", inversedBy="curriculum", cascade={"persist"})
+     * @ORM\JoinColumn(name="ciclo_id", referencedColumnName="id", nullable=true)
+     */
+    private $currentCiclo;
 
     /**
      * @var int
@@ -116,6 +118,22 @@ class Curriculum
     public function setCurrentcourse($currentcourse)
     {
         $this->currentcourse = $currentcourse;
+    }
+
+    /**
+     * @return Ciclo
+     */
+    public function getCurrentCiclo()
+    {
+        return $this->currentCiclo;
+    }
+
+    /**
+     * @param Ciclo $currentCiclo
+     */
+    public function setCurrentCiclo(Ciclo $currentCiclo = null)
+    {
+        $this->currentCiclo = $currentCiclo;
     }
 
     /**
