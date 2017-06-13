@@ -33,4 +33,6 @@ security:
            # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
            # - { path: ^/home, roles: [ROLE_USER, ROLE_ADMIN]}
            # - { path: ^/publications, roles: [ROLE_USER, ROLE_ADMIN]}
+            - { path: ^/sonata, roles: [ROLE_ADMIN]}
+
 

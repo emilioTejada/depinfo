@@ -15,7 +15,7 @@ class UserController extends Controller
     {
 
         if(is_object($this->getUser())){
-            return $this->redirect('home');
+            return $this->redirect('sonata');
         }
 
         $authenticationUtils = $this->get('security.authentication_utils');

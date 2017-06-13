@@ -24,6 +24,9 @@ use Doctrine\ORM\Mapping\JoinTable;
  */
 class User implements AdvancedUserInterface
 {
+
+    const ADMIN = 'Admin';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
     /**
      * @var int
      *
@@ -515,7 +518,11 @@ class User implements AdvancedUserInterface
      */
     public function getRoles()
     {
-        return array($this->rol);
+        $rol = $this->rol->getName();
+        if ($this->rol= self::ADMIN)
+            $rol = self::ROLE_ADMIN;
+
+        return array($rol);
     }
 
     /**
