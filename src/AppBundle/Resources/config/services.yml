@@ -3,31 +3,31 @@ services:
         class: AppBundle\Admin\UserAdmin
         arguments: [~, UserControlBundle\Entity\User, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: User }
+            - { name: sonata.admin, manager_type: orm, group: usuarios, label: User }
 
     sonata.rol:
         class: AppBundle\Admin\RolAdmin
         arguments: [~, UserControlBundle\Entity\Rol, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Rol }
+            - { name: sonata.admin, manager_type: orm, group: usuarios, label: Rol }
 
     sonata.mensaje:
         class: AppBundle\Admin\MensajeAdmin
         arguments: [~, AppBundle\Entity\Mensaje, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Mensaje }
+            - { name: sonata.admin, manager_type: orm, group: chat, label: Mensaje }
 
     sonata.noticia:
         class: AppBundle\Admin\NoticiaAdmin
         arguments: [~, AppBundle\Entity\Noticia, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Noticia }
+            - { name: sonata.admin, manager_type: orm, group: noticias, label: Noticia }
 
     sonata.categoria:
         class: AppBundle\Admin\CategoriaAdmin
         arguments: [~, AppBundle\Entity\Categoria, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Categoria }
+            - { name: sonata.admin, manager_type: orm, group: noticias, label: Categoria }
 
 #    sonata.ciclo:
 #        class: AppBundle\Admin\CicloAdmin
@@ -39,13 +39,13 @@ services:
         class: AppBundle\Admin\AsignaturaAdmin
         arguments: [~, AppBundle\Entity\Asignatura, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Asignatura }
+            - { name: sonata.admin, manager_type: orm, group: currículo, label: Asignatura }
 
     app.admin.sala:
         class: AppBundle\Admin\SalaAdmin
         arguments: [~, AppBundle\Entity\Sala, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Sala }
+            - { name: sonata.admin, manager_type: orm, group: chat, label: Sala }
         calls:
             - [ addChild, [@sonata.user]]
 
@@ -53,13 +53,13 @@ services:
         class: AppBundle\Admin\CicloAdmin
         arguments: [~, AppBundle\Entity\Ciclo, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Ciclo }
+            - { name: sonata.admin, manager_type: orm, group: currículo, label: Ciclo }
 
     app.admin.sala.tipo:
         class: AppBundle\Admin\Sala_tipoAdmin
         arguments: [~, AppBundle\Entity\Sala_tipo, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Sala_tipo }
+            - { name: sonata.admin, manager_type: orm, group: chat, label: Sala tipo }
 
     app.menu_listener:
           class: AppBundle\EventListener\MenuBuilderListener
@@ -73,10 +73,10 @@ services:
         class: AppBundle\Admin\CurriculumAdmin
         arguments: [~, AppBundle\Entity\Curriculum, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Curriculum }
+            - { name: sonata.admin, manager_type: orm, group: currículo, label: Curriculum }
 
     app.admin.titulo_fp:
         class: AppBundle\Admin\Titulo_fpAdmin
         arguments: [~, AppBundle\Entity\TituloFP, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: TituloFP }
+            - { name: sonata.admin, manager_type: orm, group: currículo, label: TituloFP }

@@ -8,12 +8,12 @@ class MenuBuilderListener
     public function addMenuItems(ConfigureMenuEvent $event)
     {
         $menu = $event->getMenu();
-        $menu->addChild("prueba")->setExtras([
+        $menu->addChild("Importación")->setExtras([
             'icon' => '<i class="fa fa-folder"></i>',
         ]);
 
-        $menu['prueba']->addChild('reports', [
-            'label' => 'Import users',
+        $menu['Importación']->addChild('reports', [
+            'label' => 'Carga de archivos',
             'route' => 'import_users',
         ]);
     }
