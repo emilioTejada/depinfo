@@ -34,9 +34,9 @@ class AsignaturaAdmin extends AbstractAdmin
             ->add('ciclo.name')
             ->add('_action', null, array(
                 'actions' => array(
-//                    'show' => array(),
-//                    'edit' => array(),
-//                    'delete' => array(),
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
                 )
             ))
         ;

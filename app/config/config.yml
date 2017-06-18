@@ -1,9 +1,14 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: services.yml }
     - { resource: @AppBundle/Resources/config/services.yml}
     - { resource: @UserControlBundle/Resources/config/services.yml}
-    - { resource: services.yml }
+    # Sonata conf
+    - { resource: sonata/sonata_admin.yml }
+    - { resource: sonata/sonata_block.yml }
+#    - { resource: sonata/sonata_media.yml }
+#    - { resource: sonata/sonata_classification.yml }
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
@@ -72,15 +77,23 @@ easy_admin:
         - AppBundle\Entity\Categoria
         - AppBundle\Entity\Noticia
 
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        # enable the SonataAdminBundle block
-        sonata.admin.block.admin_list:
-            contexts: [admin]
+
 
 jms_di_extra:
     locations:
         all_bundles: false
         bundles: [UserControlBundle, AppBundle]
         directories: ["%kernel.root_dir%/../src"]
+
+fos_user:
+    db_driver:      orm
+    firewall_name:  main
+    user_class:     UserControlBundle\Entity\User
+
+    group:
+        group_class:   Sonata\UserBundle\Entity\BaseGroup
+        group_manager: sonata.user.orm.group_manager
+
+    service:
+        user_manager: sonata.user.orm.user_manager
+

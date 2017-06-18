@@ -86,7 +86,6 @@ class SalaAdmin extends AbstractAdmin
                 {
                     return $userRepository->findByRol("Alumno");
                 },
-
             ))
         ;
     }

@@ -5,8 +5,6 @@ namespace UserControlBundle\Repository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
-
-use JMS\DiExtraBundle\Annotation as DI;
 use UserControlBundle\Entity\User;
 
 
@@ -29,6 +27,4 @@ class UserRepository extends EntityRepository
             );
         ;
     }
-
-
 }

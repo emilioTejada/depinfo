@@ -84,9 +84,9 @@ class Sala
 
     public function __construct()
     {
-        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mensajes = new ArrayCollection();
 
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
 
