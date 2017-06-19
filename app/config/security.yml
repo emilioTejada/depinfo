@@ -5,7 +5,7 @@ security:
     encoders:
         # Our user class and the algorithm we'll use to encode passwords
         # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
-        UserControlBundle\Entity\User: bcrypt
+        FOS\UserBundle\Model\UserInterface: bcrypt
 
     providers:
         # in this example, users are stored via Doctrine in the database
@@ -13,20 +13,40 @@ security:
         # To load users from somewhere else: http://symfony.com/doc/current/cookbook/security/custom_provider.html
         user_db_provider:
             entity: { class: UserControlBundle:User, property: username }
+        fos_userbundle:
+          id: fos_user.user_manager
 
     firewalls:
             dev:
                 pattern: ^/(_(profiler|wdt)|css|images|js)/
                 security: false
             main:
-                anonymous: ~
-                provider: user_db_provider
+                pattern: .*
+                context: user
+                anonymous: true
                 form_login:
-                    login_path: /login
-                    check_path: /login_check
+                  provider: fos_userbundle
+                  login_path: /login
+                  use_forward: false
+                  check_path: /login_check
+                  failure_path: null
+                logout: true
+
+
+            # -> custom firewall for the admin area of the URL
+            admin:
+                pattern: /admin(.*)
+                context: user
+                form_login:
+                  provider: fos_userbundle
+                  login_path: /admin/login
+                  use_forward: false
+                  check_path: /admin/login_check
+                  failure_path: null
                 logout:
-                    path: logout
-                    target: /
+                  path: /admin/logout
+                anonymous: true
+
 
     access_control:
            # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
@@ -36,3 +56,17 @@ security:
 #            - { path: ^/sonata, roles: [ROLE_ADMIN]}
 
 
+          # URL of FOSUserBundle which need to be available to anonymous users
+          - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+          - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+          - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+          # Admin login page needs to be access without credential
+          - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+          - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+          - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+          # Secured part of the site
+
+          # This config requires being logged for the whole site and having the admin role for the admin part.
+          # Change these rules to adapt them to your needs
+          - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+          - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

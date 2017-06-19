@@ -1,2 +1,12 @@
 sonata_admin:
     title: Backend IESocial
+    title_logo: https://www.iesvirgendelcarmen.com/moodle/pluginfile.php/25235/course/summary/ESCUDO_CHICO.jpg
+
+#    dashboard:
+#      groups:
+#        demo.admin.main:
+#          label:  currículo
+#          label_catalogue: AppBundle
+#          icon: '<i class="fa fa-database"></i>'
+#          items:
+#            - app.admin.titulo_fp
