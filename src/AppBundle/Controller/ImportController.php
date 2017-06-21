@@ -48,12 +48,22 @@ class ImportController extends Controller
             $uploaded_data= $submittedForm->getData();
             //gestion archivo usuarios
             if ($uploaded_data->getDataType()==UploadedDataDto::USERS){
-                $users_array = $this->get('app.xls_file_users_importer')->import($submittedForm->getData());
+                try {
+                    $users_array = $this->get('app.xls_file_users_importer')->import($submittedForm->getData());
 
-                for ($i=0; $i<count($users_array); $i++){
-                    $this->getDoctrine()->getManagerForClass('UserControlBundle:User')->persist($users_array[$i]);
+                    for ($i=0; $i<count($users_array); $i++){
+                        $this->getDoctrine()->getManagerForClass('UserControlBundle:User')->persist($users_array[$i]);
+                    }
+                    $this->getDoctrine()->getManagerForClass('UserControlBundle:User')->flush();
+
+                } catch (\Exception $e) {
+                    $this->addFlash('error', $this->get('translator')->trans('importation.error'));
+                    return $this->redirectToRoute('import_users');
                 }
-                $this->getDoctrine()->getManagerForClass('UserControlBundle:User')->flush();
+
+                $this->addFlash('success', $this->get('translator')->trans('importation.successful'));
+
+
             }
             //gestion archivo ciclos
             if ($uploaded_data->getDataType()==UploadedDataDto::CICLOS){
