@@ -27,7 +27,7 @@ class TituloFP
     /**
      * @var Ciclo
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ciclo", inversedBy="titulofp",cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ciclo", inversedBy="titulofp",cascade={"persist"})
      */
     private $ciclo;
 

@@ -67,7 +67,7 @@ class Ciclo
 
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="ciclo")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="ciclo", cascade={"remove"})
      */
     private $titulofp;
 

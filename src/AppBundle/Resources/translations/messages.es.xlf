@@ -6,6 +6,14 @@
                 <source>data_upload_form.upload</source>
                 <target>Subir archivo</target>
             </trans-unit>
+            <trans-unit id="importation.error">
+                <source>importation.error</source>
+                <target>Error en la importación</target>
+            </trans-unit>
+            <trans-unit id="importation.successful">
+                <source>importation.successful</source>
+                <target>Éxito en la importación</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -28,14 +28,14 @@ class Curriculum
     /**
      * @var TituloFP[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="curriculum", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TituloFP", mappedBy="curriculum", cascade={"persist", "remove"})
      */
     private $tituloFp;
 
     /**
      * @var Ciclo
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ciclo", inversedBy="curriculum", cascade={"persist"})
-     * @ORM\JoinColumn(name="ciclo_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="ciclo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $currentCiclo;
 
@@ -49,7 +49,7 @@ class Curriculum
     /**
      * @var User
      *
-     * @ORM\OneToOne(targetEntity="UserControlBundle\Entity\User", mappedBy="curriculum")
+     * @ORM\OneToOne(targetEntity="UserControlBundle\Entity\User", mappedBy="curriculum", orphanRemoval=true)
      */
     private $user;
 

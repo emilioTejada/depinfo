@@ -84,7 +84,8 @@ class CurriculumAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('currentcourse')
-            ->add('titulo_fp')
+            ->add('currentCiclo.name')
+//            ->add('tituloFp')
         ;
     }
 

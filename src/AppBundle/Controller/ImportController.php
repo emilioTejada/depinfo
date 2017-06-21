@@ -57,12 +57,22 @@ class ImportController extends Controller
             }
             //gestion archivo ciclos
             if ($uploaded_data->getDataType()==UploadedDataDto::CICLOS){
-                $ciclos_array = $this->get('app.xls_file_ciclos_importer')->import($submittedForm->getData());
 
-                for ($i=0; $i<count($ciclos_array); $i++){
-                    $this->getDoctrine()->getManagerForClass('AppBundle:Ciclo')->persist($ciclos_array[$i]);
+                try {
+                    $ciclos_array = $this->get('app.xls_file_ciclos_importer')->import($submittedForm->getData());
+                    for ($i=0; $i<count($ciclos_array); $i++){
+                        $this->getDoctrine()->getManagerForClass('AppBundle:Ciclo')->persist($ciclos_array[$i]);
+                    }
+                    $this->getDoctrine()->getManagerForClass('AppBundle:Ciclo')->flush();
+
+
+                } catch (\Exception $e) {
+                    $this->addFlash('error', $this->get('translator')->trans('importation.error'));
+                    return $this->redirectToRoute('import_users');
                 }
-                $this->getDoctrine()->getManagerForClass('AppBundle:Ciclo')->flush();
+
+                $this->addFlash('success', $this->get('translator')->trans('importation.successful'));
+
             }
         }
         return $this->render('@App/import.html.twig', array(
